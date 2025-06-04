@@ -31,10 +31,10 @@ jobs:
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@releases/v4
         with:
-          folder: dist
+          folder: dist/browser
           commit-message: 'Actualización de despliegue :D'
         env:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           BASE_BRANCH: master
           BRANCH: gh-pages
-          FOLDER: dist
+          FOLDER: dist/browser
