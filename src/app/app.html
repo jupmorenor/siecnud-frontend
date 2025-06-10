@@ -3,16 +3,16 @@
     <mat-icon matListItemIcon>menu</mat-icon>
   </button>
   <h1>SIECNUD</h1>
-  <button mat-icon-button >
+  <button matButton >
     <mat-icon matListItemIcon>person</mat-icon>
-    <span>Usuario</span>
+    <span matListItemTitle>Usuario</span>
   </button>
 </mat-toolbar>
 <mat-drawer-container class="sidenav-container">
   <mat-drawer  [(opened)]="open" mode="side" class="sidenav-list">
     <mat-nav-list>
       @for (option of menu; track option.name) {
-        <a mat-list-item  (click)="navigate(option.route)">
+        <a mat-list-item (click)="navigate(option.route)">
           <mat-icon matListItemIcon>{{ option.icon }}</mat-icon>
           <span matListItemTitle>{{ option.name }}</span>
         </a>
