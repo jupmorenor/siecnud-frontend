@@ -3,8 +3,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
-import { Component,  } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { MatMenuModule } from '@angular/material/menu';
+import { Component, inject } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -14,12 +15,16 @@ import { RouterOutlet } from '@angular/router';
     MatIconModule,
     MatSidenavModule,
     MatListModule,
-    MatButtonModule
+    MatButtonModule,
+    MatMenuModule
   ],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
+
+  protected router = inject(Router);
+  
   protected title = 'siecnud-frontend';
   protected menu: any[];
   protected open = false;
@@ -27,7 +32,7 @@ export class App {
   constructor() {
     this.menu = [
       { name: 'Inicio', icon: 'home', route: '/' },
-      { name: 'Instituciones', icon: 'location_city', route: '/insituciones' },
+      { name: 'Instituciones', icon: 'location_city', route: '/instituciones' },
       { name: 'Docentes', icon: 'local_cafe', route: '/docentes' },
       { name: 'Cursos', icon: 'book', route: '/cursos' },
       { name: 'Cuestionarios', icon: 'file_copy', route: '/cuestionarios' },
@@ -39,7 +44,9 @@ export class App {
   }
 
   protected navigate(route: string) {
-    // Logic to navigate to the specified route
-    console.log(`Navigating to ${route}`);
+    this.router.navigate([route]);
   }
+
+  protected logout() { }
+
 }

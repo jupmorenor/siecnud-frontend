@@ -3,13 +3,23 @@
     <mat-icon matListItemIcon>menu</mat-icon>
   </button>
   <h1>SIECNUD</h1>
-  <button matButton >
+  <button matButton [matMenuTriggerFor]="userMenu">
     <mat-icon matListItemIcon>person</mat-icon>
     <span matListItemTitle>Usuario</span>
   </button>
+  <mat-menu #userMenu="matMenu">
+    <button mat-menu-item (click)="navigate('/perfil')">
+      <mat-icon matListItemIcon>account_circle</mat-icon>
+      <span matListItemTitle>Perfil</span>
+    </button>
+    <button mat-menu-item (click)="logout()">
+      <mat-icon matListItemIcon>logout</mat-icon>
+      <span matListItemTitle>Salir</span>
+    </button>
+  </mat-menu>
 </mat-toolbar>
 <mat-drawer-container class="sidenav-container">
-  <mat-drawer  [(opened)]="open" mode="side" class="sidenav-list">
+  <mat-drawer [(opened)]="open" mode="side" class="sidenav-list">
     <mat-nav-list>
       @for (option of menu; track option.name) {
         <a mat-list-item (click)="navigate(option.route)">
