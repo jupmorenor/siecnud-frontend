@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { 
@@ -20,7 +20,7 @@ import { TableSettings } from '../../models/TableSettings';
   templateUrl: './instituciones.html',
   styleUrl: './instituciones.css'
 })
-export class Instituciones {
+export class Instituciones implements OnInit {
 
   protected settings: Settings;
   protected instituciones: LocalDataSource
@@ -30,7 +30,7 @@ export class Instituciones {
       id: {
         title: 'ID',
         type: 'text',
-        hide: true,
+        width: '5%',
       },
       nombre: {
         title: 'Nombre Institución',
@@ -50,7 +50,10 @@ export class Instituciones {
     this.instituciones.load([
       { id: 1, nombre: 'Institución A', estado: 'Aceptado' },
       { id: 2, nombre: 'Institución B', estado: 'Rechazado' },
-      { id: 3, nombre: 'Institución C', estado: 'Pendiente' }
+      { id: 3, nombre: 'Institución C', estado: 'Pendiente' },
+      { id: 4, nombre: 'Institución D', estado: 'Aceptado' },
+      { id: 5, nombre: 'Institución E', estado: 'Rechazado' },
+      { id: 6, nombre: 'Institución F', estado: 'Pendiente' }
     ]);
   }
 
