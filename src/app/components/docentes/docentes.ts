@@ -10,6 +10,7 @@ import {
 } from 'angular2-smart-table';
 import { TableSettingsWithAdd } from '../../models/TableSettings';
 import { ListadoInstituciones } from "../listado-instituciones/listado-instituciones";
+import { Institucion } from '../../models/Institucion';
 
 @Component({
   selector: 'app-docentes',
@@ -26,7 +27,7 @@ export class Docentes implements OnInit {
 
   protected settings: Settings;
   protected docentes: LocalDataSource;
-  protected institucion: number = 0;
+  protected institucion: Institucion | null = null;
   protected selectedTab: number = 0;
 
   constructor() {
@@ -44,15 +45,15 @@ export class Docentes implements OnInit {
         title: 'Cargo o rol',
         type: 'text',
       },
-    }
-    this.settings = {...TableSettingsWithAdd}    
-    this.settings.columns = columnas
+    };
+    this.settings = {...TableSettingsWithAdd};   
+    this.settings.columns = columnas;
     this.docentes = new LocalDataSource();
   }
 
   ngOnInit(): void {
     // Cargar docentes con la institucion seleccionada
-    if (this.institucion !== 0) {
+    if (this.institucion !== null) {
       this.docentes.load([
         { id: 1, nombre: 'Docente A', cargo: 'Profesor' },
         { id: 2, nombre: 'Docente B', cargo: 'Asistente' },
@@ -64,8 +65,8 @@ export class Docentes implements OnInit {
     }
   }
 
-  institucionSelected(institucionId: number) {
-    this.institucion = institucionId;
+  institucionSelected(institucion: Institucion) {
+    this.institucion = institucion;
     this.ngOnInit();
   }
 

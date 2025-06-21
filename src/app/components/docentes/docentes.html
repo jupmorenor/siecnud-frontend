@@ -3,30 +3,35 @@
         <mat-card-title>
             <h1>Módulo de Docentes</h1>
         </mat-card-title>
+        @if (institucion !== null) {
+            <mat-card-subtitle>
+                <h2>{{ institucion.nombre }}</h2>
+            </mat-card-subtitle>
+        }   
     </mat-card-header>
     <mat-card-content class="content-container">
-        @if (institucion === 0) {
+        @if (institucion === null) {
             <app-listado-instituciones 
-            [usuarioId]="1" 
-            (institucionSelected)="institucionSelected($event)"
-        ></app-listado-instituciones>
+                [usuarioId]="1" 
+                (institucionSelected)="institucionSelected($event)"
+            ></app-listado-instituciones>
         } @else {
             <mat-tab-group
                 [selectedIndex]="selectedTab"
                 (selectedIndexChange)="setTab($event)"
             >
-            <mat-tab label="Listado">
-                <angular2-smart-table
-                    [settings]="settings"
-                    [source]="docentes"
-                    (create)="agregarDocente()"
-                    (custom)="eventoDocentes($event)"
-                />
-            </mat-tab>
-            <mat-tab label="Detalle">
-                
-            </mat-tab>
-        </mat-tab-group>
+                <mat-tab label="Listado">
+                    <angular2-smart-table
+                        [settings]="settings"
+                        [source]="docentes"
+                        (create)="agregarDocente()"
+                        (custom)="eventoDocentes($event)"
+                    />
+                </mat-tab>
+                <mat-tab label="Detalle">
+                    
+                </mat-tab>
+            </mat-tab-group>
         }
     </mat-card-content>
 </mat-card>

@@ -1,5 +1,6 @@
 import { Component, input, output } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
+import { Institucion } from '../../models/Institucion';
 
 @Component({
   selector: 'app-listado-instituciones',
@@ -12,9 +13,9 @@ import { MatCardModule } from '@angular/material/card';
 export class ListadoInstituciones {
 
   usuarioId = input<number>();
-  institucionSelected = output<number>();
+  institucionSelected = output<Institucion>();
 
-  protected instituciones: any[] = [
+  protected instituciones: Institucion[] = [
     { id: 1, nombre: 'Institución A', estado: 'Aceptado' },
     { id: 2, nombre: 'Institución B', estado: 'Rechazado' },
     { id: 3, nombre: 'Institución C', estado: 'Pendiente' },
@@ -29,11 +30,11 @@ export class ListadoInstituciones {
     // Cargar instituciones usand el usuarioId. 
     // Si solo hay una institución, seleccionarla automáticamente
     if (this.instituciones.length === 1) {
-      this.seleccionar(this.instituciones[0].id);
+      this.seleccionar(this.instituciones[0]);
     }
   }
 
-  seleccionar(id: number) {
-    this.institucionSelected.emit(id);
+  seleccionar(inst: Institucion) {
+    this.institucionSelected.emit(inst);
   }
 }
