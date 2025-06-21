@@ -1,7 +1,7 @@
-<div class="listado-instituciones">
+<div class="listado-cards">
     @for (inst of instituciones; track inst.id) {
-        <mat-card class="institucion-card" (click)="seleccionar(inst)">
-            <mat-card-header class="card-header">
+        <mat-card class="item-card" (click)="seleccionar(inst)">
+            <mat-card-header class="item-card-header">
                 <mat-card-title>{{ inst.nombre }}</mat-card-title>
             </mat-card-header>
         </mat-card>

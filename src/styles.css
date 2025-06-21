@@ -13,6 +13,26 @@ body {
     margin: 10px;
 }
 
+.listado-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.item-card {
+    padding: 60px;
+    cursor: pointer;
+}
+
+.item-card:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.item-card-header {
+    justify-content: center;
+}
+
 .content-container {
     justify-content: center;
     text-align: center;
