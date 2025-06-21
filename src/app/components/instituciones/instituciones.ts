@@ -23,7 +23,9 @@ import { TableSettings } from '../../models/TableSettings';
 export class Instituciones implements OnInit {
 
   protected settings: Settings;
-  protected instituciones: LocalDataSource
+  protected instituciones: LocalDataSource;
+
+  protected selectedTab: number = 0;
 
   constructor() {
     const columnas: IColumns = {
@@ -58,7 +60,12 @@ export class Instituciones implements OnInit {
   }
 
   verInstitucion(event: CustomActionEvent) {
+    this.setTab(1);
     console.log('Ver institución:', event.data);
+  }
+
+  setTab(index: number) {
+    this.selectedTab = index;
   }
 
 }

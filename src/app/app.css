@@ -6,3 +6,8 @@
 .sidenav-container {
     display: inline;
 }
+
+:host ::ng-deep angular2-st-tbody-custom {
+    display: flex;
+    justify-content: space-around;
+}

@@ -8,7 +8,7 @@ import {
   CustomActionEvent,
   IColumns
 } from 'angular2-smart-table';
-import { TableSettings } from '../../models/TableSettings';
+import { TableSettingsWithAdd } from '../../models/TableSettings';
 import { ListadoInstituciones } from "../listado-instituciones/listado-instituciones";
 
 @Component({
@@ -27,6 +27,7 @@ export class Docentes implements OnInit {
   protected settings: Settings;
   protected docentes: LocalDataSource;
   protected institucion: number = 0;
+  protected selectedTab: number = 0;
 
   constructor() {
     const columnas: IColumns = {
@@ -44,13 +45,7 @@ export class Docentes implements OnInit {
         type: 'text',
       },
     }
-    this.settings = {...TableSettings}
-    /* this.settings.actions.add = true;
-    this.settings.actions.custom.push({
-      name: 'retirar',
-      title: '<i class="material-icons">remove_circle</i>',
-    }); */
-    
+    this.settings = {...TableSettingsWithAdd}    
     this.settings.columns = columnas
     this.docentes = new LocalDataSource();
   }
@@ -74,13 +69,22 @@ export class Docentes implements OnInit {
     this.ngOnInit();
   }
 
+  agregarDocente() {
+    this.setTab(1);
+    console.log('Agregar docentes');
+  }
+
   eventoDocentes(event: CustomActionEvent) {
-    console.log('Evento docentes:', event);
     if (event.action === 'ver') {
+      this.setTab(1);
       console.log('Ver docente:', event.data);
     } else if (event.action === 'retirar') {
       console.log('Retirar docente:', event.data);
     }
+  }
+
+  setTab(index: number) {
+    this.selectedTab = index;
   }
 
 }

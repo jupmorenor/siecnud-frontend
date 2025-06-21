@@ -11,11 +11,15 @@
             (institucionSelected)="institucionSelected($event)"
         ></app-listado-instituciones>
         } @else {
-            <mat-tab-group>
+            <mat-tab-group
+                [selectedIndex]="selectedTab"
+                (selectedIndexChange)="setTab($event)"
+            >
             <mat-tab label="Listado">
                 <angular2-smart-table
                     [settings]="settings"
                     [source]="docentes"
+                    (create)="agregarDocente()"
                     (custom)="eventoDocentes($event)"
                 />
             </mat-tab>
