@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { MatTabsModule } from '@angular/material/tabs';
 import { 
   Angular2SmartTableModule,
   LocalDataSource,
@@ -16,7 +15,6 @@ import { Institucion } from '../../models/Institucion';
   selector: 'app-cursos',
   imports: [
     MatCardModule,
-    MatTabsModule,
     Angular2SmartTableModule,
     ListadoInstituciones,
   ],

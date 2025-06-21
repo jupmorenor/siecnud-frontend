@@ -1,0 +1,10 @@
+<div class="listado-cursos">
+    @for (curso of cursos; track curso.id) {
+        <mat-card class="curso-card" (click)="seleccionar(curso)">
+            <mat-card-header class="card-header">
+                <mat-card-title>{{ curso.nombre }}</mat-card-title>
+            </mat-card-header>
+        </mat-card>
+    }
+</div>
+
