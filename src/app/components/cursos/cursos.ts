@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { 
   Angular2SmartTableModule,
@@ -21,7 +21,7 @@ import { Institucion } from '../../models/Institucion';
   templateUrl: './cursos.html',
   styleUrl: './cursos.css'
 })
-export class Cursos implements OnInit {
+export class Cursos {
 
   protected settings: Settings;
   protected cursos: LocalDataSource;
@@ -46,7 +46,7 @@ export class Cursos implements OnInit {
     this.cursos = new LocalDataSource();
   }
 
-  ngOnInit(): void {
+  cargarCursos(): void {
     // Cargar cursos con la institucion seleccionada
     if (this.institucion !== null) {
       this.cursos.load([
@@ -60,7 +60,7 @@ export class Cursos implements OnInit {
 
   institucionSelected(institucion: Institucion) {
     this.institucion = institucion;
-    this.ngOnInit();
+    this.cargarCursos();
   }
 
   agregarCurso() {

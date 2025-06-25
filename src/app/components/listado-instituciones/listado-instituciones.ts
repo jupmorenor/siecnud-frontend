@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, input, OnInit, output } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { Institucion } from '../../models/Institucion';
 
@@ -10,7 +10,7 @@ import { Institucion } from '../../models/Institucion';
   templateUrl: './listado-instituciones.html',
   styleUrl: './listado-instituciones.css'
 })
-export class ListadoInstituciones {
+export class ListadoInstituciones implements OnInit {
 
   usuarioId = input<number>();
   institucionSelected = output<Institucion>();
@@ -30,7 +30,9 @@ export class ListadoInstituciones {
     // Cargar instituciones usand el usuarioId. 
     // Si solo hay una institución, seleccionarla automáticamente
     if (this.instituciones.length === 1) {
-      this.seleccionar(this.instituciones[0]);
+      setTimeout(() => {
+        this.seleccionar(this.instituciones[0]);
+      })
     }
   }
 

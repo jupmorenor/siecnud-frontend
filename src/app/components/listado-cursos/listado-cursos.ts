@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, input, output, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { Curso } from '../../models/curso';
 
@@ -10,7 +10,7 @@ import { Curso } from '../../models/curso';
   templateUrl: './listado-cursos.html',
   styleUrl: './listado-cursos.css'
 })
-export class ListadoCursos {
+export class ListadoCursos implements OnInit {
 
   institucionId = input<number>();
   cursoSelected = output<Curso>();
@@ -29,7 +29,9 @@ export class ListadoCursos {
     // Cargar cursos usando el institucionId. 
     // Si solo hay un curso, seleccionarlo automáticamente
     if (this.cursos.length === 1) {
-      this.seleccionar(this.cursos[0]);
+      setTimeout(() => {
+        this.seleccionar(this.cursos[0]);
+      });
     }
   }
 

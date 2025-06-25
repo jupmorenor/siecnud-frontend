@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { 
@@ -23,7 +23,7 @@ import { Institucion } from '../../models/Institucion';
   templateUrl: './docentes.html',
   styleUrl: './docentes.css'
 })
-export class Docentes implements OnInit {
+export class Docentes {
 
   protected settings: Settings;
   protected docentes: LocalDataSource;
@@ -51,7 +51,7 @@ export class Docentes implements OnInit {
     this.docentes = new LocalDataSource();
   }
 
-  ngOnInit(): void {
+  cargarDocentes(): void {
     // Cargar docentes con la institucion seleccionada
     if (this.institucion !== null) {
       this.docentes.load([
@@ -67,7 +67,7 @@ export class Docentes implements OnInit {
 
   institucionSelected(institucion: Institucion) {
     this.institucion = institucion;
-    this.ngOnInit();
+    this.cargarDocentes();
   }
 
   agregarDocente() {

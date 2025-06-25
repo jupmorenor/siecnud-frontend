@@ -59,7 +59,7 @@ export class Cuestionarios {
     this.cuestionarios = new LocalDataSource();
   }
 
-  ngOnInit(): void {
+  cargarCuestionarios(): void {
     // Cargar cuestionarios con la institucion y curso seleccionados
     if (this.institucion !== null && this.curso !== null) {
       this.cuestionarios.load([
@@ -77,7 +77,7 @@ export class Cuestionarios {
 
   cursoSelected(curso: Curso) {
     this.curso = curso;
-    this.ngOnInit();
+    this.cargarCuestionarios();
   }
 
   agregarCuestionario() {
