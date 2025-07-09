@@ -9,6 +9,7 @@ import {
   IColumns
 } from 'angular2-smart-table';
 import { TableSettings } from '../../models/TableSettings';
+import { FormInstitucion } from "../form-institucion/form-institucion";
 
 @Component({
   selector: 'app-instituciones',
@@ -16,7 +17,8 @@ import { TableSettings } from '../../models/TableSettings';
     MatCardModule,
     MatTabsModule,
     Angular2SmartTableModule,
-  ],
+    FormInstitucion
+],
   templateUrl: './instituciones.html',
   styleUrl: './instituciones.css'
 })
