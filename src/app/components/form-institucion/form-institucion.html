@@ -1,6 +1,6 @@
 <form [formGroup]="datosInstitucion" >
-    <mat-grid-list cols="2" rowHeight="25rem">
-        <mat-grid-tile>
+    <mat-grid-list cols="2" rowHeight="26rem">
+        <mat-grid-tile colspan="1">
             <fieldset class="grid-container" formGroupName="institucion">
                 <legend><h2>Datos básicos de Institución</h2></legend>
                 <div class="form-container">
@@ -50,13 +50,13 @@
                 </div>
             </fieldset>
         </mat-grid-tile>
-        <mat-grid-tile>
+        <mat-grid-tile colspan="1">
             <fieldset class="grid-container" formGroupName="institucion">
                 <legend><h2>Ubicación de la Institución</h2></legend>
                 <div class="form-container">
                     <mat-form-field>
                         <mat-label>Departamento</mat-label>
-                        <mat-select required>
+                        <mat-select (selectionChange)="seleccionarDepartamento($event)" required>
                         <mat-option value="" disabled>Seleccione un departamento</mat-option>
                             @for(depto of departamentos; track depto.id) {
                                 <mat-option [value]="depto.id">{{ depto.nombre }}</mat-option>
@@ -70,7 +70,7 @@
                     </mat-form-field>
                     <mat-form-field>
                         <mat-label>Municipio</mat-label>
-                        <mat-select formControlName="municipio_id" required>
+                        <mat-select formControlName="municipio_id" (selectionChange)="seleccionarMunicipio($event)" required>
                         <mat-option value="" disabled>Seleccione un municipio</mat-option>
                             @for(municipio of municipios; track municipio.id) {
                                 <mat-option [value]="municipio.id">{{ municipio.nombre }}</mat-option>
@@ -115,9 +115,7 @@
                 </div>
             </fieldset>
         </mat-grid-tile>
-    </mat-grid-list>
-    <mat-grid-list cols="1" rowHeight="25rem">
-        <mat-grid-tile>
+        <mat-grid-tile colspan="2">
             <fieldset class="grid-container" formGroupName="representante">
                 <legend><h2>Representante de Institución</h2></legend>
                 <div class="form-container">
@@ -170,7 +168,7 @@
             </fieldset>
         </mat-grid-tile>
     </mat-grid-list>
-    <button mat-raised-button type="submit" (submit)="registrarInstitucion()" [disabled]="datosInstitucion.invalid">
+    <button mat-raised-button type="submit" (click)="registrarInstitucion()" [disabled]="datosInstitucion.invalid">
         Registrar Institución
     </button>
 </form>

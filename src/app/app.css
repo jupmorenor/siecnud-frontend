@@ -4,7 +4,12 @@
 }
 
 .sidenav-container {
-    display: inline;
+    height: calc(100vh - 64px);
+    background-color: white;
+}
+
+.sidenav-list {
+    overflow-y: auto;
 }
 
 :host ::ng-deep angular2-st-tbody-custom {

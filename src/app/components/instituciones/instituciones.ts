@@ -26,6 +26,7 @@ export class Instituciones implements OnInit {
 
   protected settings: Settings;
   protected instituciones: LocalDataSource;
+  protected institucionSeleccionada: number = 0;
 
   protected selectedTab: number = 0;
 
@@ -63,7 +64,7 @@ export class Instituciones implements OnInit {
 
   verInstitucion(event: CustomActionEvent) {
     this.setTab(1);
-    console.log('Ver institución:', event.data);
+    this.institucionSeleccionada = event.data.id;
   }
 
   setTab(index: number) {
