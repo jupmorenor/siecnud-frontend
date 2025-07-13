@@ -1,10 +1,11 @@
 import { Component, inject, OnInit, input } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatIconModule } from '@angular/material/icon';
 import { Institucion } from '../../models/Institucion';
 
 @Component({
@@ -15,7 +16,8 @@ import { Institucion } from '../../models/Institucion';
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
-    MatGridListModule
+    MatGridListModule,
+    MatIconModule
   ],
   templateUrl: './form-institucion.html',
   styleUrl: './form-institucion.css'
@@ -45,8 +47,10 @@ export class FormInstitucion implements OnInit {
         nombre: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
         cargo: ['', [Validators.required]],
         correo: ['', [Validators.required, Validators.email]],
+        telefonos: this.formBuilder.array([
+          this.formBuilder.control('', [Validators.required, Validators.pattern('^[0-9]{10}$')]),
+        ]),
       }),
-      //telefonos: this.formBuilder.array(['', [Validators.required, Validators.pattern('^[0-9]{10}$')]]),
     });
   }
 
@@ -101,6 +105,21 @@ export class FormInstitucion implements OnInit {
 
   get representante() {
     return this.datosInstitucion.get('representante');
+  }
+
+  get telefonos() {
+    return this.datosInstitucion.get('representante')?.get('telefonos') as FormArray;
+  }
+
+  agregarTelefono() {
+    if (this.telefonos) {
+      this.telefonos.push(this.formBuilder.control('', [Validators.required, Validators.pattern('^[0-9]{10}$')]));
+    }
+  }
+
+  eliminarTelefono(index: number) {
+    console.log('Eliminar teléfono en el índice:', index);
+    this.telefonos.removeAt(index);
   }
 
   seleccionarDepartamento(event: any) {

@@ -115,7 +115,7 @@
                 </div>
             </fieldset>
         </mat-grid-tile>
-        <mat-grid-tile colspan="2">
+        <mat-grid-tile colspan="2" class="grid-container">
             <fieldset class="grid-container" formGroupName="representante">
                 <legend><h2>Representante de Institución</h2></legend>
                 <div class="form-container">
@@ -164,6 +164,32 @@
                             </mat-error>
                         }
                     </mat-form-field>
+                    @for (telefono of telefonos.controls; let i = $index; track i) {
+                    <mat-form-field>
+                        <mat-label>Teléfono {{i + 1}}</mat-label>
+                        <div formArrayName="telefonos">
+                                <input matInput type="text" [formControlName]="i" required>
+                                @if (telefonos.length > 1) {
+                                    <button mat-icon-button type="button" title="Quitar teléfono" (click)="eliminarTelefono(i)">
+                                        <mat-icon>remove</mat-icon>
+                                    </button>
+                                }
+                                @if (telefono.hasError('required')) {
+                                    <mat-error>
+                                        El teléfono es obligatorio.
+                                    </mat-error>
+                                }
+                                @if (telefono.hasError('pattern')) {
+                                    <mat-error>
+                                        El teléfono debe tener 10 dígitos.
+                                    </mat-error>
+                                }
+                            </div>                   
+                        </mat-form-field>
+                    }
+                    <button mat-icon-button type="button" title="Agregar teléfono" (click)="agregarTelefono()">
+                        <mat-icon>add</mat-icon>
+                    </button>
                 </div>
             </fieldset>
         </mat-grid-tile>
