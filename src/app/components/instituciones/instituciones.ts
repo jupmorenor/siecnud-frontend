@@ -71,4 +71,32 @@ export class Instituciones implements OnInit {
     this.selectedTab = index;
   }
 
+  onVeredicto(event: string) {
+    switch (event) {
+      case 'admitir':
+        this.admitirInstitucion();
+        break;
+      case 'rechazar':
+        this.rechazarInstitucion();
+        break;
+      case 'excluir':
+        this.excluirInstitucion();
+        break;
+      default:
+        console.error('Veredicto no reconocido:', event);
+    }
+  }
+
+  admitirInstitucion() {
+    console.log(`Institución ${this.institucionSeleccionada} admitida.`);
+  }
+
+  rechazarInstitucion() {
+    console.log(`Institución ${this.institucionSeleccionada} rechazada.`);
+  }
+
+  excluirInstitucion() {
+    console.log(`Institución ${this.institucionSeleccionada} excluida.`);
+  }
+
 }

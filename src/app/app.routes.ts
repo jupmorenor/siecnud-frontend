@@ -5,10 +5,20 @@ import { Docentes } from './components/docentes/docentes';
 import { Cursos } from './components/cursos/cursos';
 import { Cuestionarios } from './components/cuestionarios/cuestionarios';
 import { Perfil } from './components/perfil/perfil';
+import { Registro } from './components/registro/registro';
+import { Web } from './components/web/web';
 
 export const routes: Routes = [
     {
         path: '',
+        component: Web
+    },
+    {
+        path: 'registro',
+        component: Registro
+    },
+    {
+        path: 'home',
         component: Home
     },
     {

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, input } from '@angular/core';
+import { Component, inject, OnInit, input, output, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -22,10 +22,11 @@ import { Institucion } from '../../models/Institucion';
   templateUrl: './form-institucion.html',
   styleUrl: './form-institucion.css'
 })
-export class FormInstitucion implements OnInit {
+export class FormInstitucion implements OnInit, OnChanges {
 
   protected formBuilder = inject(FormBuilder);
-  institucionId = input<number>();
+  institucionId = input<number>(-1);
+  veredicto = output<string>();
 
   protected departamentos: Array<any> = [];
   protected municipios: Array<any> = [];
@@ -40,6 +41,7 @@ export class FormInstitucion implements OnInit {
         tipo: ['', [Validators.required]],
         caracter: ['', [Validators.required]],
         direccion: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
+        departamento_id: ['', [Validators.required]],
         municipio_id: ['', [Validators.required]],
         upz_id: ['']
       }),
@@ -89,6 +91,32 @@ export class FormInstitucion implements OnInit {
       { id: '31', nombre: "Vaupés" },
       { id: "32", nombre:"Vichada" }
     ];
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    const institucionId = changes['institucionId']?.currentValue;
+    if (institucionId >= 0) {
+      this.datosInstitucion.setValue({
+        institucion: {
+          nombre: 'Institución ' + institucionId,
+          tipo: 'IES',
+          caracter: 'publico',
+          direccion: 'Calle 1 2 3',
+          departamento_id: '05',
+          municipio_id: '009',
+          upz_id: '003'
+        },
+        representante: {
+          nombre: 'Representante ' + institucionId,
+          cargo: 'Rector',
+          correo: 'correo@institucion' + institucionId + '.edu.co',
+          telefonos: ['1234567890']
+        }
+      })
+      this.datosInstitucion.disable();
+    } else {
+      this.datosInstitucion.enable();
+    }
   }
 
   get nombre() {
@@ -155,7 +183,6 @@ export class FormInstitucion implements OnInit {
   registrarInstitucion() {
     if (this.datosInstitucion.valid) {
       const institucion: Institucion = this.datosInstitucion.value.institucion;
-      const telefonos = this.datosInstitucion.value.telefonos;
       const representante = this.datosInstitucion.value.representante;
 
       // Aquí se puede enviar la institución a un servicio o API

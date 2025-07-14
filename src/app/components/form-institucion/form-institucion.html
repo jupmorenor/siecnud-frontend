@@ -56,7 +56,7 @@
                 <div class="form-container">
                     <mat-form-field>
                         <mat-label>Departamento</mat-label>
-                        <mat-select (selectionChange)="seleccionarDepartamento($event)" required>
+                        <mat-select formControlName="departamento_id" (selectionChange)="seleccionarDepartamento($event)" required>
                         <mat-option value="" disabled>Seleccione un departamento</mat-option>
                             @for(depto of departamentos; track depto.id) {
                                 <mat-option [value]="depto.id">{{ depto.nombre }}</mat-option>
@@ -169,7 +169,7 @@
                         <mat-label>Teléfono {{i + 1}}</mat-label>
                         <div formArrayName="telefonos">
                                 <input matInput type="text" [formControlName]="i" required>
-                                @if (telefonos.length > 1) {
+                                @if (telefonos.length > 1 && institucionId() === -1) {
                                     <button mat-icon-button type="button" title="Quitar teléfono" (click)="eliminarTelefono(i)">
                                         <mat-icon>remove</mat-icon>
                                     </button>
@@ -187,14 +187,30 @@
                             </div>                   
                         </mat-form-field>
                     }
-                    <button mat-icon-button type="button" title="Agregar teléfono" (click)="agregarTelefono()">
-                        <mat-icon>add</mat-icon>
-                    </button>
+                    @if (institucionId() === -1) {
+                        <button mat-icon-button type="button" title="Agregar teléfono" (click)="agregarTelefono()" >
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    }
                 </div>
             </fieldset>
         </mat-grid-tile>
     </mat-grid-list>
-    <button mat-raised-button type="submit" (click)="registrarInstitucion()" [disabled]="datosInstitucion.invalid">
-        Registrar Institución
-    </button>
+    @if (institucionId() === -1) {
+        <button mat-raised-button type="submit" (click)="registrarInstitucion()" [disabled]="datosInstitucion.invalid">
+            Registrar Institución
+        </button>
+    } @else {
+        <div class="button-container">
+            <button mat-raised-button (click)="veredicto.emit('admitir')">
+                Admitir
+            </button>
+            <button mat-raised-button (click)="veredicto.emit('rechazar')">
+                Rechazar
+            </button>
+            <button mat-raised-button (click)="veredicto.emit('excluir')">
+                Excluir
+            </button>
+        </div>
+    }
 </form>

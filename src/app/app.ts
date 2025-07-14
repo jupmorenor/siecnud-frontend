@@ -28,10 +28,11 @@ export class App {
   protected title = 'siecnud-frontend';
   protected menu: any[];
   protected open = false;
+  protected loggedIn = false;
 
   constructor() {
     this.menu = [
-      { name: 'Inicio', icon: 'home', route: '/' },
+      { name: 'Inicio', icon: 'home', route: '/home' },
       { name: 'Instituciones', icon: 'location_city', route: '/instituciones' },
       { name: 'Docentes', icon: 'local_cafe', route: '/docentes' },
       { name: 'Cursos', icon: 'book', route: '/cursos' },
@@ -47,6 +48,14 @@ export class App {
     this.router.navigate([route]);
   }
 
-  protected logout() { }
+  protected logout() {
+    this.loggedIn = false;
+    this.navigate('/');
+  }
+
+  protected login() {
+    this.loggedIn = true;
+    this.navigate('/home');
+  }
 
 }
