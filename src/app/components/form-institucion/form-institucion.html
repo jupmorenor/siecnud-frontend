@@ -1,6 +1,6 @@
 <form [formGroup]="datosInstitucion" >
     <mat-grid-list cols="2" rowHeight="26rem">
-        <mat-grid-tile colspan="1">
+        <mat-grid-tile colspan="1" class="grid-container">
             <fieldset class="grid-container" formGroupName="institucion">
                 <legend><h2>Datos básicos de Institución</h2></legend>
                 <div class="form-container">
@@ -50,7 +50,7 @@
                 </div>
             </fieldset>
         </mat-grid-tile>
-        <mat-grid-tile colspan="1">
+        <mat-grid-tile colspan="1" class="grid-container">
             <fieldset class="grid-container" formGroupName="institucion">
                 <legend><h2>Ubicación de la Institución</h2></legend>
                 <div class="form-container">
@@ -82,6 +82,17 @@
                             </mat-error>
                         }
                     </mat-form-field>
+                    @if(localidades.length > 0) {
+                        <mat-form-field>
+                            <mat-label>Localidad</mat-label>
+                            <mat-select formControlName="direccion_local_id" (selectionChange)="seleccionarLocalidad($event)">
+                            <mat-option value="" disabled>Seleccione una localidad</mat-option>
+                                @for(localidad of localidades; track localidad.id) {
+                                    <mat-option [value]="localidad.id">{{ localidad.nombre }}</mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+                    }
                     @if(upzs.length > 0) {
                         <mat-form-field>
                             <mat-label>UPZ</mat-label>

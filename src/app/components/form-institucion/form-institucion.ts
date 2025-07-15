@@ -30,6 +30,7 @@ export class FormInstitucion implements OnInit, OnChanges {
 
   protected departamentos: Array<any> = [];
   protected municipios: Array<any> = [];
+  protected localidades: Array<any> = [];
   protected upzs: Array<any> = [];
 
   protected datosInstitucion: FormGroup;
@@ -43,6 +44,7 @@ export class FormInstitucion implements OnInit, OnChanges {
         direccion: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
         departamento_id: ['', [Validators.required]],
         municipio_id: ['', [Validators.required]],
+        direccion_local_id: [''],
         upz_id: ['']
       }),
       representante: this.formBuilder.group({
@@ -104,6 +106,7 @@ export class FormInstitucion implements OnInit, OnChanges {
           direccion: 'Calle 1 2 3',
           departamento_id: '05',
           municipio_id: '009',
+          direccion_local_id: '002',
           upz_id: '003'
         },
         representante: {
@@ -165,18 +168,37 @@ export class FormInstitucion implements OnInit, OnChanges {
     this.municipios = munip.filter(m => m.departamento === event.value);
     this.upzs = [];
     this.datosInstitucion.get('municipio')?.setValue('');
+    this.datosInstitucion.get('direccion_local_id')?.setValue('');
     this.datosInstitucion.get('upz')?.setValue('');
   }
 
   seleccionarMunicipio(event: any) {
-    const upzList = [
-      { id: '001', nombre: 'UPZ 1', municipio: '009' },
-      { id: '002', nombre: 'UPZ 2', municipio: '009' },
-      { id: '003', nombre: 'UPZ 3', municipio: '009' },
-      { id: '004', nombre: 'UPZ 4', municipio: '009' },
-      { id: '005', nombre: 'UPZ 5', municipio: '009' },
+    const localList = [
+      { id: '001', nombre: 'Localidad 1', municipio: '009' },
+      { id: '002', nombre: 'Localidad 2', municipio: '009' },
+      { id: '003', nombre: 'Localidad 3', municipio: '009' },
+      { id: '004', nombre: 'Localidad 4', municipio: '009' },
+      { id: '005', nombre: 'Localidad 5', municipio: '009' },
     ];
-    this.upzs = upzList.filter(u => u.municipio === event.value);
+    this.localidades = localList.filter(l => l.municipio === event.value);
+    this.datosInstitucion.get('direccion_local_id')?.setValue('');
+    this.datosInstitucion.get('upz_id')?.setValue('');
+  }
+
+  seleccionarLocalidad(event: any) {
+    const upzList = [
+      { id: '001', nombre: 'UPZ 1', direccion_local_id: '001' },
+      { id: '002', nombre: 'UPZ 2', direccion_local_id: '001' },
+      { id: '003', nombre: 'UPZ 3', direccion_local_id: '002' },
+      { id: '004', nombre: 'UPZ 4', direccion_local_id: '002' },
+      { id: '005', nombre: 'UPZ 5', direccion_local_id: '003' },
+      { id: '006', nombre: 'UPZ 6', direccion_local_id: '003' },
+      { id: '007', nombre: 'UPZ 7', direccion_local_id: '004' },
+      { id: '008', nombre: 'UPZ 8', direccion_local_id: '004' },
+      { id: '009', nombre: 'UPZ 9', direccion_local_id: '005' },
+      { id: '010', nombre: 'UPZ 10', direccion_local_id: '005' }
+    ];
+    this.upzs = upzList.filter(u => u.direccion_local_id === event.value);
     this.datosInstitucion.get('upz_id')?.setValue('');
   }
 
