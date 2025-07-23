@@ -1,12 +1,12 @@
 import { Routes } from '@angular/router';
-import { Home } from './components/home/home';
-import { Instituciones } from './components/instituciones/instituciones';
-import { Docentes } from './components/docentes/docentes';
-import { Cursos } from './components/cursos/cursos';
-import { Cuestionarios } from './components/cuestionarios/cuestionarios';
-import { Perfil } from './components/perfil/perfil';
-import { Registro } from './components/registro/registro';
-import { Web } from './components/web/web';
+import { Home } from './components/otros/home/home';
+import { Instituciones } from './components/modulos/instituciones/instituciones';
+import { Docentes } from './components/modulos/docentes/docentes';
+import { Cursos } from './components/modulos/cursos/cursos';
+import { Cuestionarios } from './components/modulos/cuestionarios/cuestionarios';
+import { Perfil } from './components/otros/perfil/perfil';
+import { Registro } from './components/pagina/registro/registro';
+import { Web } from './components/pagina/web/web';
 
 export const routes: Routes = [
     {

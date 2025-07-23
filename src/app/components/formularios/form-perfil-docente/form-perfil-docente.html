@@ -1,0 +1,70 @@
+<form [formGroup]="datosPerfilDocente">
+    <fieldset class="grid-container">
+        <legend><h2>Datos académicos</h2></legend>
+        <div class="form-container">
+            <mat-form-field>
+                <mat-label>Institución de origen</mat-label>
+                <input matInput type="text" id="institucion" formControlName="institucion" required>
+                @if (institucion?.hasError('required')) {
+                    <mat-error>
+                        La institución de origen es obligatoria.
+                    </mat-error>
+                }
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Área de especialización</mat-label>
+                <input matInput type="text" id="titulo" formControlName="titulo" required>
+                @if (titulo?.hasError('required')) {
+                    <mat-error>
+                        El área de especialización es obligatoria.
+                    </mat-error>
+                }
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Fecha de grado</mat-label>
+                <input matInput [matDatepicker]="picker2" type="date" id="fechaGrado" formControlName="fechaGrado" required>
+                <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+                @if (fechaGrado?.hasError('required')) {
+                    <mat-error>
+                        La fecha de grado es obligatoria.
+                    </mat-error>
+                }
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Nivel académico</mat-label>
+                <mat-select formControlName="nivelAcademico" required>
+                    <mat-option value="Pregrado">Pregrado</mat-option>
+                    <mat-option value="Posgrado">Posgrado</mat-option>
+                    <mat-option value="Doctorado">Doctorado</mat-option>
+                </mat-select>
+                @if (nivelAcademico?.hasError('required')) {
+                    <mat-error>
+                        El nivel académico es obligatorio.
+                    </mat-error>
+                }
+            </mat-form-field>
+            @for( reconocimiento of reconocimientos.controls; let i = $index; track i) {
+            <mat-form-field>
+                    <mat-label>Reconocimiento {{i + 1}}</mat-label>
+                    <div formArrayName="reconocimientos">
+                        <input matInput type="text" [formControlName]="i" placeholder="Reconocimiento {{i + 1}}">
+                        @if (reconocimientos.length > 1) {
+                            <button mat-icon-button type="button" title="Quitar reconocimiento" (click)="eliminarReconocimiento(i)">
+                                <mat-icon>remove</mat-icon>
+                            </button>
+                        }
+                        @if (reconocimiento.hasError('required')) {
+                            <mat-error>
+                                El reconocimiento es obligatorio.
+                            </mat-error>
+                        }
+                    </div>
+                </mat-form-field>
+            }
+            <button mat-icon-button type="button" title="Agregar reconocimiento" (click)="agregarReconocimiento()">
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
+    </fieldset>
+</form>

@@ -1,6 +1,6 @@
 import { Component, input, OnInit, output } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { Institucion } from '../../models/Institucion';
+import { Institucion } from '../../../models/Institucion';
 
 @Component({
   selector: 'app-listado-instituciones',

@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
-import { Institucion } from '../../models/Institucion';
+import { Institucion } from '../../../models/Institucion';
 
 @Component({
   selector: 'app-form-institucion',

@@ -8,9 +8,9 @@ import {
   CustomActionEvent,
   IColumns
 } from 'angular2-smart-table';
-import { TableSettingsWithAdd } from '../../models/TableSettings';
-import { ListadoInstituciones } from "../listado-instituciones/listado-instituciones";
-import { Institucion } from '../../models/Institucion';
+import { TableSettingsWithAdd } from '../../../models/TableSettings';
+import { ListadoInstituciones } from "../../otros/listado-instituciones/listado-instituciones";
+import { Institucion } from '../../../models/Institucion';
 
 @Component({
   selector: 'app-docentes',

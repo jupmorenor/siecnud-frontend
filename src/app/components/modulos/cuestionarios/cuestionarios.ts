@@ -7,11 +7,11 @@ import {
   CustomActionEvent,
   IColumns
 } from 'angular2-smart-table';
-import { ListadoInstituciones } from "../listado-instituciones/listado-instituciones";
-import { ListadoCursos } from '../listado-cursos/listado-cursos';
-import { TableSettings } from '../../models/TableSettings';
-import { Institucion } from '../../models/Institucion';
-import { Curso } from '../../models/curso';
+import { ListadoInstituciones } from "../../otros/listado-instituciones/listado-instituciones";
+import { ListadoCursos } from '../../otros/listado-cursos/listado-cursos';
+import { TableSettings } from '../../../models/TableSettings';
+import { Institucion } from '../../../models/Institucion';
+import { Curso } from '../../../models/curso';
 
 @Component({
   selector: 'app-cuestionarios',

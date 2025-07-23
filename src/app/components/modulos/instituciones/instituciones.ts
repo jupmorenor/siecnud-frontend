@@ -8,8 +8,8 @@ import {
   CustomActionEvent,
   IColumns
 } from 'angular2-smart-table';
-import { TableSettings } from '../../models/TableSettings';
-import { FormInstitucion } from "../form-institucion/form-institucion";
+import { TableSettings } from '../../../models/TableSettings';
+import { FormInstitucion } from "../../formularios/form-institucion/form-institucion";
 
 @Component({
   selector: 'app-instituciones',

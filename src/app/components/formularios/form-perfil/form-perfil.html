@@ -1,0 +1,67 @@
+<form [formGroup]="datosPerfil" >
+    <fieldset class="grid-container">
+        <legend><h2>Datos básicos</h2></legend>
+        <div class="form-container">
+            <mat-form-field>
+                <mat-label>Nombre completo</mat-label>
+                <input matInput type="text" id="nombre" formControlName="nombre" required>
+                @if (nombre?.hasError('required')) {
+                    <mat-error>
+                        El nombre es obligatorio.
+                    </mat-error>
+                }
+                @if(nombre?.hasError('minlength')) {
+                    <mat-error>
+                        El nombre debe tener al menos 3 caracteres.
+                    </mat-error>
+                }
+                @if(nombre?.hasError('maxlength')) {
+                    <mat-error>
+                        El nombre no puede exceder los 50 caracteres.
+                    </mat-error>
+                }
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Correo electrónico</mat-label>
+                <input matInput type="email" id="correo" formControlName="correo" required>
+                @if (correo?.hasError('required')) {
+                    <mat-error>
+                        El correo electrónico es obligatorio.
+                    </mat-error>
+                }
+                @if(correo?.hasError('email')) {
+                    <mat-error>
+                        El formato del correo electrónico es inválido.
+                    </mat-error>
+                }
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Cargo</mat-label>
+                <mat-select formControlName="cargo" required>
+                    <mat-option value="Rector">Rector</mat-option>
+                    <mat-option value="Coordinador">Coordinador</mat-option>
+                </mat-select>
+                @if (cargo?.hasError('required')) {
+                    <mat-error>
+                        El cargo o rol es obligatorio.
+                    </mat-error>
+                }
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Fecha de nacimiento</mat-label>
+                <input matInput [matDatepicker]="picker" type="date" id="fechaNacimiento" formControlName="fechaNacimiento" required>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                @if (fechaNacimiento?.hasError('required')) {
+                    <mat-error>
+                        La fecha de nacimiento es obligatoria.
+                    </mat-error>
+                }
+            </mat-form-field>
+        </div>
+        <div class="button-container">
+            <button mat-raised-button color="primary" type="submit" [disabled]="datosPerfil.invalid">Guardar</button>
+            <button mat-raised-button color="warn" type="reset">Cancelar</button>
+        </div>
+    </fieldset>
+</form>
