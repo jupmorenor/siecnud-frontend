@@ -49,7 +49,7 @@
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Fecha de nacimiento</mat-label>
-                <input matInput [matDatepicker]="picker" type="date" id="fechaNacimiento" formControlName="fechaNacimiento" required>
+                <input matInput [matDatepicker]="picker" type="text" id="fechaNacimiento" formControlName="fechaNacimiento" required>
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
                 @if (fechaNacimiento?.hasError('required')) {
@@ -60,8 +60,13 @@
             </mat-form-field>
         </div>
         <div class="button-container">
-            <button mat-raised-button color="primary" type="submit" [disabled]="datosPerfil.invalid">Guardar</button>
-            <button mat-raised-button color="warn" type="reset">Cancelar</button>
+            @if (usuarioId() === -1 || datosPerfil.enabled) {
+                <button mat-raised-button type="button" (click)="guardarDatos()" [disabled]="datosPerfil.invalid">Guardar</button>
+            } @else {
+                @if (modificable()) {
+                    <button mat-raised-button type="button" (click)="activarFormulario()" >Modificar</button>
+                }
+            }
         </div>
     </fieldset>
 </form>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { 
@@ -10,6 +10,7 @@ import {
 } from 'angular2-smart-table';
 import { TableSettings } from '../../../models/TableSettings';
 import { FormInstitucion } from "../../formularios/form-institucion/form-institucion";
+import { Alerts } from '../../../services/alerts';
 
 @Component({
   selector: 'app-instituciones',
@@ -23,6 +24,8 @@ import { FormInstitucion } from "../../formularios/form-institucion/form-institu
   styleUrl: './instituciones.css'
 })
 export class Instituciones implements OnInit {
+
+  protected alert = inject(Alerts);
 
   protected settings: Settings;
   protected instituciones: LocalDataSource;
@@ -88,15 +91,30 @@ export class Instituciones implements OnInit {
   }
 
   admitirInstitucion() {
-    console.log(`Institución ${this.institucionSeleccionada} admitida.`);
+    this.alert.confirm().then(result => {
+      if (result.isConfirmed) {
+        console.log(`Institución ${this.institucionSeleccionada} admitida.`); 
+        this.alert.success();
+      }
+    });
   }
 
   rechazarInstitucion() {
-    console.log(`Institución ${this.institucionSeleccionada} rechazada.`);
+    this.alert.confirm(true).then(result => {
+      if (result.isConfirmed) {
+        console.log(`Institución ${this.institucionSeleccionada} rechazada.`); 
+        this.alert.success(true);
+      }
+    });
   }
 
   excluirInstitucion() {
-    console.log(`Institución ${this.institucionSeleccionada} excluida.`);
+    this.alert.confirm(true).then(result => {
+      if (result.isConfirmed) {
+        console.log(`Institución ${this.institucionSeleccionada} excluida.`); 
+        this.alert.success(true);
+      }
+    });
   }
 
 }

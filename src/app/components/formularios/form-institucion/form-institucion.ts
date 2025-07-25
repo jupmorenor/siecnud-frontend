@@ -4,9 +4,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
-import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { Institucion } from '../../../models/Institucion';
+import { Alerts } from '../../../services/alerts';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form-institucion',
@@ -16,7 +17,6 @@ import { Institucion } from '../../../models/Institucion';
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
-    MatGridListModule,
     MatIconModule
   ],
   templateUrl: './form-institucion.html',
@@ -24,7 +24,9 @@ import { Institucion } from '../../../models/Institucion';
 })
 export class FormInstitucion implements OnInit, OnChanges {
 
+  protected router = inject(Router);
   protected formBuilder = inject(FormBuilder);
+  protected alert = inject(Alerts);
   institucionId = input<number>(-1);
   veredicto = output<string>();
 
@@ -102,7 +104,7 @@ export class FormInstitucion implements OnInit, OnChanges {
         institucion: {
           nombre: 'Institución ' + institucionId,
           tipo: 'IES',
-          caracter: 'publico',
+          caracter: 'publica',
           direccion: 'Calle 1 2 3',
           departamento_id: '05',
           municipio_id: '009',
@@ -204,11 +206,17 @@ export class FormInstitucion implements OnInit, OnChanges {
 
   registrarInstitucion() {
     if (this.datosInstitucion.valid) {
-      const institucion: Institucion = this.datosInstitucion.value.institucion;
-      const representante = this.datosInstitucion.value.representante;
-
-      // Aquí se puede enviar la institución a un servicio o API
-      console.log('Institución registrada:', institucion, representante);
+      this.alert.confirm().then(result => {
+        if (result.isConfirmed) {
+          // Aquí se puede enviar la institución a un servicio o API
+          const institucion: Institucion = this.datosInstitucion.value.institucion;
+          const representante = this.datosInstitucion.value.representante;
+          console.log('Institución registrada:', institucion, representante);
+          this.alert.success().then(() => {
+            this.router.navigate(['/']);
+          });
+        }
+      });
     } else {
       console.error('Formulario inválido');
     }

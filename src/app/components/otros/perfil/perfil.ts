@@ -17,4 +17,6 @@ import { FormPerfilDocente } from "../../formularios/form-perfil-docente/form-pe
 })
 export class Perfil {
 
+  usuarioId: number = 0;
+
 }

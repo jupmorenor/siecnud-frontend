@@ -1,218 +1,210 @@
 <form [formGroup]="datosInstitucion" >
-    <mat-grid-list cols="2" rowHeight="26rem">
-        <mat-grid-tile colspan="2" class="grid-container">
-            <fieldset class="grid-container" formGroupName="institucion">
-                <legend><h2>Datos básicos de Institución</h2></legend>
-                <div class="form-container">
-                    <mat-form-field>
-                        <mat-label>Nombre de la Institución</mat-label>
-                        <input matInput type="text" id="nombre" formControlName="nombre" required>
-                        @if (nombre?.hasError('required')) {
-                            <mat-error>
-                                El nombre es obligatorio.
-                            </mat-error>
-                        }
-                        @if(nombre?.hasError('minlength')) {
-                            <mat-error>
-                                El nombre debe tener al menos 3 caracteres.
-                            </mat-error>
-                        }
-                        @if(nombre?.hasError('maxlength')) {
-                            <mat-error>
-                                El nombre no puede exceder los 50 caracteres.
-                            </mat-error>
-                        }
-                    </mat-form-field>
-                    <mat-form-field>
-                        <mat-label>Tipo de Institución</mat-label>
-                        <mat-select formControlName="tipo" required>
-                            <mat-option value="IES">Educación superior</mat-option>
-                            <mat-option value="IED">Eduación básica y media</mat-option>
-                        </mat-select>
-                        @if (institucion?.get('tipo')?.hasError('required')) {
-                            <mat-error>
-                                El tipo de institución es obligatorio.
-                            </mat-error>
-                        }
-                    </mat-form-field>
-                    <mat-form-field>
-                        <mat-label>Caracter de Institución</mat-label>
-                        <mat-select formControlName="caracter" required>
-                            <mat-option value="publica">Pública</mat-option>
-                            <mat-option value="privada">Privada</mat-option>
-                        </mat-select>
-                        @if (institucion?.get('caracter')?.hasError('required')) {
-                            <mat-error>
-                                El caracter de institución es obligatorio.
-                            </mat-error>
-                        }
-                    </mat-form-field>
-                </div>
-            </fieldset>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="1" class="grid-container">
-            <fieldset class="grid-container" formGroupName="institucion">
-                <legend><h2>Ubicación de la Institución</h2></legend>
-                <div class="form-container">
-                    <mat-form-field>
-                        <mat-label>Departamento</mat-label>
-                        <mat-select formControlName="departamento_id" (selectionChange)="seleccionarDepartamento($event)" required>
-                        <mat-option value="" disabled>Seleccione un departamento</mat-option>
-                            @for(depto of departamentos; track depto.id) {
-                                <mat-option [value]="depto.id">{{ depto.nombre }}</mat-option>
-                            }
-                        </mat-select>
-                        @if (institucion?.get('departamento')?.hasError('required')) {
-                            <mat-error>
-                                El departamento es obligatorio.
-                            </mat-error>
-                        }
-                    </mat-form-field>
-                    <mat-form-field>
-                        <mat-label>Municipio</mat-label>
-                        <mat-select formControlName="municipio_id" (selectionChange)="seleccionarMunicipio($event)" required>
-                        <mat-option value="" disabled>Seleccione un municipio</mat-option>
-                            @for(municipio of municipios; track municipio.id) {
-                                <mat-option [value]="municipio.id">{{ municipio.nombre }}</mat-option>
-                            }
-                        </mat-select>
-                        @if (institucion?.get('municipio_id')?.hasError('required')) {
-                            <mat-error>
-                                El municipio es obligatorio.
-                            </mat-error>
-                        }
-                    </mat-form-field>
-                    @if(localidades.length > 0) {
-                        <mat-form-field>
-                            <mat-label>Localidad</mat-label>
-                            <mat-select formControlName="direccion_local_id" (selectionChange)="seleccionarLocalidad($event)">
-                            <mat-option value="" disabled>Seleccione una localidad</mat-option>
-                                @for(localidad of localidades; track localidad.id) {
-                                    <mat-option [value]="localidad.id">{{ localidad.nombre }}</mat-option>
-                                }
-                            </mat-select>
-                        </mat-form-field>
+    <fieldset class="grid-container" formGroupName="institucion">
+        <legend><h2>Datos básicos de Institución</h2></legend>
+        <div class="form-container">
+            <mat-form-field>
+                <mat-label>Nombre de la Institución</mat-label>
+                <input matInput type="text" id="nombre" formControlName="nombre" required>
+                @if (nombre?.hasError('required')) {
+                    <mat-error>
+                        El nombre es obligatorio.
+                    </mat-error>
+                }
+                @if(nombre?.hasError('minlength')) {
+                    <mat-error>
+                        El nombre debe tener al menos 3 caracteres.
+                    </mat-error>
+                }
+                @if(nombre?.hasError('maxlength')) {
+                    <mat-error>
+                        El nombre no puede exceder los 50 caracteres.
+                    </mat-error>
+                }
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Tipo de Institución</mat-label>
+                <mat-select formControlName="tipo" required>
+                    <mat-option value="IES">Educación superior</mat-option>
+                    <mat-option value="IED">Eduación básica y media</mat-option>
+                </mat-select>
+                @if (institucion?.get('tipo')?.hasError('required')) {
+                    <mat-error>
+                        El tipo de institución es obligatorio.
+                    </mat-error>
+                }
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Caracter de Institución</mat-label>
+                <mat-select formControlName="caracter" required>
+                    <mat-option value="publica">Pública</mat-option>
+                    <mat-option value="privada">Privada</mat-option>
+                </mat-select>
+                @if (institucion?.get('caracter')?.hasError('required')) {
+                    <mat-error>
+                        El caracter de institución es obligatorio.
+                    </mat-error>
+                }
+            </mat-form-field>
+        </div>
+    </fieldset>
+    <fieldset class="grid-container" formGroupName="institucion">
+        <legend><h2>Ubicación de la Institución</h2></legend>
+        <div class="form-container">
+            <mat-form-field>
+                <mat-label>Departamento</mat-label>
+                <mat-select formControlName="departamento_id" (selectionChange)="seleccionarDepartamento($event)" required>
+                <mat-option value="" disabled>Seleccione un departamento</mat-option>
+                    @for(depto of departamentos; track depto.id) {
+                        <mat-option [value]="depto.id">{{ depto.nombre }}</mat-option>
                     }
-                    @if(upzs.length > 0) {
-                        <mat-form-field>
-                            <mat-label>UPZ</mat-label>
-                            <mat-select formControlName="upz_id">
-                            <mat-option value="" disabled>Seleccione una UPZ</mat-option>
-                                @for(upz of upzs; track upz.id) {
-                                    <mat-option [value]="upz.id">{{ upz.nombre }}</mat-option>
-                                }
-                            </mat-select>
-                        </mat-form-field>
+                </mat-select>
+                @if (institucion?.get('departamento')?.hasError('required')) {
+                    <mat-error>
+                        El departamento es obligatorio.
+                    </mat-error>
+                }
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Municipio</mat-label>
+                <mat-select formControlName="municipio_id" (selectionChange)="seleccionarMunicipio($event)" required>
+                <mat-option value="" disabled>Seleccione un municipio</mat-option>
+                    @for(municipio of municipios; track municipio.id) {
+                        <mat-option [value]="municipio.id">{{ municipio.nombre }}</mat-option>
                     }
-                    <mat-form-field>
-                        <mat-label>Dirección</mat-label>
-                        <input matInput type="text" id="direccion" formControlName="direccion" required>
-                        @if (direccion?.hasError('required')) {
+                </mat-select>
+                @if (institucion?.get('municipio_id')?.hasError('required')) {
+                    <mat-error>
+                        El municipio es obligatorio.
+                    </mat-error>
+                }
+            </mat-form-field>
+            @if(localidades.length > 0) {
+                <mat-form-field>
+                    <mat-label>Localidad</mat-label>
+                    <mat-select formControlName="direccion_local_id" (selectionChange)="seleccionarLocalidad($event)">
+                    <mat-option value="" disabled>Seleccione una localidad</mat-option>
+                        @for(localidad of localidades; track localidad.id) {
+                            <mat-option [value]="localidad.id">{{ localidad.nombre }}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+            }
+            @if(upzs.length > 0) {
+                <mat-form-field>
+                    <mat-label>UPZ</mat-label>
+                    <mat-select formControlName="upz_id">
+                    <mat-option value="" disabled>Seleccione una UPZ</mat-option>
+                        @for(upz of upzs; track upz.id) {
+                            <mat-option [value]="upz.id">{{ upz.nombre }}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+            }
+            <mat-form-field>
+                <mat-label>Dirección</mat-label>
+                <input matInput type="text" id="direccion" formControlName="direccion" required>
+                @if (direccion?.hasError('required')) {
+                    <mat-error>
+                        La dirección es obligatoria.
+                    </mat-error>
+                }
+                @if(direccion?.hasError('minlength')) {
+                    <mat-error>
+                        La dirección debe tener al menos 5 caracteres.
+                    </mat-error>
+                }
+                @if(direccion?.hasError('maxlength')) {
+                    <mat-error>
+                        La dirección no puede exceder los 100 caracteres.
+                    </mat-error>
+                }
+            </mat-form-field>
+        </div>
+    </fieldset>
+    <fieldset class="grid-container" formGroupName="representante">
+        <legend><h2>Representante de Institución</h2></legend>
+        <div class="form-container">
+            <mat-form-field>
+                <mat-label>Nombre completo</mat-label>
+                <input matInput type="text" id="representante" formControlName="nombre" required>
+                @if (representante?.get('nombre')?.hasError('required')) {
+                    <mat-error>
+                        El nombre del representante es obligatorio.
+                    </mat-error>
+                }
+                @if (representante?.get('nombre')?.hasError('minlength')) {
+                    <mat-error>
+                        El nombre debe tener al menos 3 caracteres.
+                    </mat-error>
+                }
+                @if (representante?.get('nombre')?.hasError('maxlength')) {
+                    <mat-error>
+                        El nombre no puede exceder los 50 caracteres.
+                    </mat-error>
+                }
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Correo electrónico</mat-label>
+                <input matInput type="email" id="correo" formControlName="correo" required>
+                @if (representante?.get('correo')?.hasError('required')) {
+                    <mat-error>
+                        El correo electrónico del representante es obligatorio.
+                    </mat-error>
+                }
+                @if (representante?.get('correo')?.hasError('email')) {
+                    <mat-error>
+                        El correo electrónico debe ser válido.
+                    </mat-error>
+                }
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Cargo o rol</mat-label>
+                <mat-select formControlName="cargo" required>
+                    <mat-option value="Rector">Rector</mat-option>
+                    <mat-option value="Coordinador">Coordinador</mat-option>
+                </mat-select>
+                @if (representante?.get('cargo')?.hasError('required')) {
+                    <mat-error>
+                        El cargo o rol es obligatorio.
+                    </mat-error>
+                }
+            </mat-form-field>
+            @for (telefono of telefonos.controls; let i = $index; track i) {
+                <mat-form-field>
+                    <mat-label>Teléfono {{i + 1}}</mat-label>
+                    <div formArrayName="telefonos">
+                        <input matInput type="text" [formControlName]="i" required>
+                        @if (telefonos.length > 1 && institucionId() === -1) {
+                            <button mat-icon-button type="button" title="Quitar teléfono" (click)="eliminarTelefono(i)">
+                                <mat-icon>remove</mat-icon>
+                            </button>
+                        }
+                        @if (telefono.hasError('required')) {
                             <mat-error>
-                                La dirección es obligatoria.
+                                El teléfono es obligatorio.
                             </mat-error>
                         }
-                        @if(direccion?.hasError('minlength')) {
+                        @if (telefono.hasError('pattern')) {
                             <mat-error>
-                                La dirección debe tener al menos 5 caracteres.
+                                El teléfono debe tener 10 dígitos.
                             </mat-error>
                         }
-                        @if(direccion?.hasError('maxlength')) {
-                            <mat-error>
-                                La dirección no puede exceder los 100 caracteres.
-                            </mat-error>
-                        }
-                    </mat-form-field>
-                </div>
-            </fieldset>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="1" class="grid-container">
-            <fieldset class="grid-container" formGroupName="representante">
-                <legend><h2>Representante de Institución</h2></legend>
-                <div class="form-container">
-                    <mat-form-field>
-                        <mat-label>Nombre completo</mat-label>
-                        <input matInput type="text" id="representante" formControlName="nombre" required>
-                        @if (representante?.get('nombre')?.hasError('required')) {
-                            <mat-error>
-                                El nombre del representante es obligatorio.
-                            </mat-error>
-                        }
-                        @if (representante?.get('nombre')?.hasError('minlength')) {
-                            <mat-error>
-                                El nombre debe tener al menos 3 caracteres.
-                            </mat-error>
-                        }
-                        @if (representante?.get('nombre')?.hasError('maxlength')) {
-                            <mat-error>
-                                El nombre no puede exceder los 50 caracteres.
-                            </mat-error>
-                        }
-                    </mat-form-field>
-                    <mat-form-field>
-                        <mat-label>Correo electrónico</mat-label>
-                        <input matInput type="email" id="correo" formControlName="correo" required>
-                        @if (representante?.get('correo')?.hasError('required')) {
-                            <mat-error>
-                                El correo electrónico del representante es obligatorio.
-                            </mat-error>
-                        }
-                        @if (representante?.get('correo')?.hasError('email')) {
-                            <mat-error>
-                                El correo electrónico debe ser válido.
-                            </mat-error>
-                        }
-                    </mat-form-field>
-                    <mat-form-field>
-                        <mat-label>Cargo o rol</mat-label>
-                        <mat-select formControlName="cargo" required>
-                            <mat-option value="Rector">Rector</mat-option>
-                            <mat-option value="Coordinador">Coordinador</mat-option>
-                        </mat-select>
-                        @if (representante?.get('cargo')?.hasError('required')) {
-                            <mat-error>
-                                El cargo o rol es obligatorio.
-                            </mat-error>
-                        }
-                    </mat-form-field>
-                    @for (telefono of telefonos.controls; let i = $index; track i) {
-                        <mat-form-field>
-                            <mat-label>Teléfono {{i + 1}}</mat-label>
-                            <div formArrayName="telefonos">
-                                <input matInput type="text" [formControlName]="i" required>
-                                @if (telefonos.length > 1 && institucionId() === -1) {
-                                    <button mat-icon-button type="button" title="Quitar teléfono" (click)="eliminarTelefono(i)">
-                                        <mat-icon>remove</mat-icon>
-                                    </button>
-                                }
-                                @if (telefono.hasError('required')) {
-                                    <mat-error>
-                                        El teléfono es obligatorio.
-                                    </mat-error>
-                                }
-                                @if (telefono.hasError('pattern')) {
-                                    <mat-error>
-                                        El teléfono debe tener 10 dígitos.
-                                    </mat-error>
-                                }
-                            </div>                   
-                        </mat-form-field>
-                    }
-                    @if (institucionId() === -1) {
-                        <button mat-icon-button type="button" title="Agregar teléfono" (click)="agregarTelefono()" >
-                            <mat-icon>add</mat-icon>
-                        </button>
-                    }
-                </div>
-            </fieldset>
-        </mat-grid-tile>
-    </mat-grid-list>
-    @if (institucionId() === -1) {
-        <button mat-raised-button type="submit" (click)="registrarInstitucion()" [disabled]="datosInstitucion.invalid">
-            Registrar Institución
-        </button>
-    } @else {
-        <div class="button-container">
+                    </div>                   
+                </mat-form-field>
+            }
+            @if (institucionId() === -1) {
+                <button mat-icon-button type="button" title="Agregar teléfono" (click)="agregarTelefono()" >
+                    <mat-icon>add</mat-icon>
+                </button>
+            }
+        </div>
+    </fieldset>
+    <div class="button-container">
+        @if (institucionId() === -1) {
+            <button mat-raised-button type="submit" (click)="registrarInstitucion()" [disabled]="datosInstitucion.invalid">
+                Registrar Institución
+            </button>
+        } @else {
             <button mat-raised-button (click)="veredicto.emit('admitir')">
                 Admitir
             </button>
@@ -222,6 +214,6 @@
             <button mat-raised-button (click)="veredicto.emit('excluir')">
                 Excluir
             </button>
-        </div>
-    }
+        }
+    </div>
 </form>

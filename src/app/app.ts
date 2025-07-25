@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { Component, inject } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
+import { MAT_DATE_LOCALE, provideNativeDateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +18,16 @@ import { Router, RouterOutlet } from '@angular/router';
     MatListModule,
     MatButtonModule,
     MatMenuModule
+  ],
+  providers: [
+    provideNativeDateAdapter(),
+    { provide: MAT_DATE_LOCALE, useValue: 'es-CO' },
+    { provide: MAT_DATE_FORMATS,
+      useValue: {
+        parse: { dateInput: 'DD/MM/YYYY' }, 
+        display: { dateInput: 'DD/MM/YYYY' } 
+      }
+    }
   ],
   templateUrl: './app.html',
   styleUrl: './app.css'
