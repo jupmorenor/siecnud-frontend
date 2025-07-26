@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, inject, input, output, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { provideNativeDateAdapter } from '@angular/material/core';
+import { Alerts } from '../../../services/alerts';
 
 
 @Component({
@@ -20,43 +20,63 @@ import { provideNativeDateAdapter } from '@angular/material/core';
     MatIconModule,
     MatDatepickerModule
   ],
-  providers: [provideNativeDateAdapter()],
   templateUrl: './form-perfil-docente.html',
   styleUrl: './form-perfil-docente.css'
 })
-export class FormPerfilDocente {
+export class FormPerfilDocente implements OnChanges {
 
   protected formBuilder = inject(FormBuilder);
+  protected alert = inject(Alerts);
   protected datosPerfilDocente: FormGroup;
 
-  usuarioId = input<number>();
+  usuarioId = input<number>(-1);
+  modificable = input<boolean>(true);
+  guardado = output<void>();
 
   constructor() {
     this.datosPerfilDocente = this.formBuilder.group({
-      institucion: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
-      titulo: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
-      fechaGrado: ['', [Validators.required]],
-      nivelAcademico: ['', [Validators.required]],
+      alma_mater: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+      especializacion: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+      fecha_grado: ['', [Validators.required]],
+      nivel_academico: ['', [Validators.required]],
       reconocimientos: this.formBuilder.array([
         this.formBuilder.control('', [Validators.required, Validators.minLength(3), Validators.maxLength(100)])
       ]),
     })
   }
 
-  get institucion() {
-    return this.datosPerfilDocente.get('institucion');
+  ngOnChanges(changes: SimpleChanges) {
+    const usuarioId = changes['usuarioId']?.currentValue;
+    if (usuarioId >= 0) {
+      // Aquí podrías cargar los datos del perfil del docente si es necesario
+      this.datosPerfilDocente.patchValue({
+        alma_mater: 'Universidad Ejemplo',
+        especializacion: 'Especialización en Educación',
+        fecha_grado: new Date('2025-07-13'),
+        nivel_academico: 'Posgrado',
+        reconocimientos: ['Reconocimiento Ejemplo']
+      });
+      this.datosPerfilDocente.disable();
+    } else {
+      this.datosPerfilDocente.reset();
+      this.datosPerfilDocente.enable();
+    }
   }
 
-  get titulo() {
-    return this.datosPerfilDocente.get('titulo');
+  get alma_mater() {
+    return this.datosPerfilDocente.get('alma_mater');
   }
 
-  get fechaGrado() {
-    return this.datosPerfilDocente.get('fechaGrado');
+  get especializacion() {
+    return this.datosPerfilDocente.get('especializacion');
   }
 
-  get nivelAcademico() {
-    return this.datosPerfilDocente.get('nivelAcademico');
+  get fecha_grado() {
+    return this.datosPerfilDocente.get('fecha_grado');
+  }
+
+  get nivel_academico() {
+    return this.datosPerfilDocente.get('nivel_academico');
   }
 
   get reconocimientos() {
@@ -69,6 +89,21 @@ export class FormPerfilDocente {
 
   eliminarReconocimiento(index: number) {
     this.reconocimientos.removeAt(index);
+  }
+
+  activarFormulario() {
+    this.datosPerfilDocente.enable();
+  }
+
+  guardarDatos() {
+    this.alert.confirm().then((result) => {
+      if (result.isConfirmed) {
+        console.log('Datos guardados:', this.datosPerfilDocente.value);
+        this.alert.success().then(() => {
+          this.datosPerfilDocente.disable();
+        });
+      }
+    });
   }
 
 }

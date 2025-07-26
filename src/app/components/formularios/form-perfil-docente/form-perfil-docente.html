@@ -4,28 +4,48 @@
         <div class="form-container">
             <mat-form-field>
                 <mat-label>Institución de origen</mat-label>
-                <input matInput type="text" id="institucion" formControlName="institucion" required>
-                @if (institucion?.hasError('required')) {
+                <input matInput type="text" id="alma_mater" formControlName="alma_mater" required>
+                @if (alma_mater?.hasError('required')) {
                     <mat-error>
                         La institución de origen es obligatoria.
+                    </mat-error>
+                }
+                @if (alma_mater?.hasError('minlength')) {
+                    <mat-error>
+                        La institución debe tener al menos 3 caracteres.
+                    </mat-error>
+                }
+                @if (alma_mater?.hasError('maxlength')) {
+                    <mat-error>
+                        La institución no puede exceder los 50 caracteres.
                     </mat-error>
                 }
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Área de especialización</mat-label>
-                <input matInput type="text" id="titulo" formControlName="titulo" required>
-                @if (titulo?.hasError('required')) {
+                <input matInput type="text" id="especializacion" formControlName="especializacion" required>
+                @if (especializacion?.hasError('required')) {
                     <mat-error>
                         El área de especialización es obligatoria.
+                    </mat-error>
+                }
+                @if (especializacion?.hasError('minlength')) {
+                    <mat-error>
+                        La especialización debe tener al menos 3 caracteres.
+                    </mat-error>
+                }
+                @if (especializacion?.hasError('maxlength')) {
+                    <mat-error>
+                        La especialización no puede exceder los 50 caracteres.
                     </mat-error>
                 }
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Fecha de grado</mat-label>
-                <input matInput [matDatepicker]="picker2" type="date" id="fechaGrado" formControlName="fechaGrado" required>
+                <input matInput [matDatepicker]="picker2" type="text" id="fecha_grado" formControlName="fecha_grado" required>
                 <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
                 <mat-datepicker #picker2></mat-datepicker>
-                @if (fechaGrado?.hasError('required')) {
+                @if (fecha_grado?.hasError('required')) {
                     <mat-error>
                         La fecha de grado es obligatoria.
                     </mat-error>
@@ -33,23 +53,23 @@
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Nivel académico</mat-label>
-                <mat-select formControlName="nivelAcademico" required>
+                <mat-select formControlName="nivel_academico" required>
                     <mat-option value="Pregrado">Pregrado</mat-option>
                     <mat-option value="Posgrado">Posgrado</mat-option>
                     <mat-option value="Doctorado">Doctorado</mat-option>
                 </mat-select>
-                @if (nivelAcademico?.hasError('required')) {
+                @if (nivel_academico?.hasError('required')) {
                     <mat-error>
                         El nivel académico es obligatorio.
                     </mat-error>
                 }
             </mat-form-field>
             @for( reconocimiento of reconocimientos.controls; let i = $index; track i) {
-            <mat-form-field>
+                <mat-form-field>
                     <mat-label>Reconocimiento {{i + 1}}</mat-label>
                     <div formArrayName="reconocimientos">
                         <input matInput type="text" [formControlName]="i" placeholder="Reconocimiento {{i + 1}}">
-                        @if (reconocimientos.length > 1) {
+                        @if (reconocimientos.length > 1 && datosPerfilDocente.enabled                               ) {
                             <button mat-icon-button type="button" title="Quitar reconocimiento" (click)="eliminarReconocimiento(i)">
                                 <mat-icon>remove</mat-icon>
                             </button>
@@ -59,12 +79,32 @@
                                 El reconocimiento es obligatorio.
                             </mat-error>
                         }
+                        @if (reconocimiento.hasError('minlength')) {
+                            <mat-error>
+                                El reconocimiento debe tener al menos 3 caracteres.
+                            </mat-error>
+                        }
+                        @if (reconocimiento.hasError('maxlength')) {
+                            <mat-error>
+                                El reconocimiento no puede exceder los 100 caracteres.
+                            </mat-error>
+                        }
                     </div>
                 </mat-form-field>
             }
-            <button mat-icon-button type="button" title="Agregar reconocimiento" (click)="agregarReconocimiento()">
-                <mat-icon>add</mat-icon>
-            </button>
+            @if (datosPerfilDocente.enabled) {
+                <button mat-icon-button type="button" title="Agregar reconocimiento" (click)="agregarReconocimiento()">
+                    <mat-icon>add</mat-icon>
+                </button>
+            }
+        </div>
+        <div class="button-container">
+            @if (datosPerfilDocente.enabled) {
+                <button mat-raised-button color="primary" type="submit" (click)="guardarDatos()">Guardar</button>
+            }
+            @if (datosPerfilDocente.disabled && modificable()) {
+                <button mat-raised-button type="button" (click)="activarFormulario()" >Modificar</button>
+            }
         </div>
     </fieldset>
 </form>

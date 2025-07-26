@@ -1,4 +1,4 @@
-import { Component, inject, input, output, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, inject, input, output, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -22,7 +22,7 @@ import { Alerts } from '../../../services/alerts';
   templateUrl: './form-perfil.html',
   styleUrl: './form-perfil.css'
 })
-export class FormPerfil implements OnInit, OnChanges {
+export class FormPerfil implements OnChanges {
 
   protected formBuilder = inject(FormBuilder);
   protected alert = inject(Alerts);
@@ -39,10 +39,6 @@ export class FormPerfil implements OnInit, OnChanges {
       cargo: ['', [Validators.required]],
       fechaNacimiento: ['', [Validators.required]]
     });
-  }
-
-  ngOnInit() {
-
   }
 
   ngOnChanges(changes: SimpleChanges) {

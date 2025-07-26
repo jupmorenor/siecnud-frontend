@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import Swal from 'sweetalert2';
+import Swal, { SweetAlertResult } from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +8,7 @@ export class Alerts {
 
   constructor() { }
 
-  confirm(eliminar?: Boolean): Promise<any> {
+  confirm(eliminar?: Boolean): Promise<SweetAlertResult> {
     return Swal.fire({
         title: `${eliminar ? 'Eliminar' : 'Guardar'} datos`,
         text: `¿Está seguro de ${eliminar ? 'Eliminar' : 'Guardar'} los datos?`,
@@ -19,7 +19,7 @@ export class Alerts {
     });
   }
 
-  success(eliminar?: Boolean): Promise<any> {
+  success(eliminar?: Boolean): Promise<SweetAlertResult> {
     return Swal.fire({
         title: 'Exito!',
         text: `Datos ${eliminar ? 'eliminados' : 'guardados'} con éxito`,

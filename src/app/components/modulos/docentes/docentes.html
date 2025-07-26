@@ -31,7 +31,7 @@
                 <mat-tab label="Detalle">
                     <app-form-perfil [usuarioId]="docenteSeleccionado" [modificable]="false" (guardado)="recargarDocentes()"></app-form-perfil>
                     @if (docenteSeleccionado >= 0) {
-                        <app-form-perfil-docente [usuarioId]="docenteSeleccionado"></app-form-perfil-docente>
+                        <app-form-perfil-docente [usuarioId]="docenteSeleccionado" [modificable]="false"></app-form-perfil-docente>
                     }
                 </mat-tab>
             </mat-tab-group>
