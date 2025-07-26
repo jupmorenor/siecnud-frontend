@@ -6,7 +6,7 @@
     </mat-card-header>
     <mat-card-content class="content-container">
         <app-form-perfil [usuarioId]="usuarioId"></app-form-perfil>
-        <app-form-contacto></app-form-contacto>
+        <app-form-contacto [usuarioId]="usuarioId"></app-form-contacto>
         <app-form-perfil-docente [usuarioId]="usuarioId"></app-form-perfil-docente>
     </mat-card-content>
         <!-- datos basicos: para crear docente y en perfil (form-perfil)

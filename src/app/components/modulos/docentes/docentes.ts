@@ -13,6 +13,7 @@ import { ListadoInstituciones } from "../../otros/listado-instituciones/listado-
 import { Institucion } from '../../../models/Institucion';
 import { FormPerfil } from "../../formularios/form-perfil/form-perfil";
 import { FormPerfilDocente } from "../../formularios/form-perfil-docente/form-perfil-docente";
+import { FormContacto } from '../../formularios/form-contacto/form-contacto';
 import { Alerts } from '../../../services/alerts';
 
 @Component({
@@ -23,7 +24,8 @@ import { Alerts } from '../../../services/alerts';
     MatTabsModule,
     Angular2SmartTableModule,
     FormPerfil,
-    FormPerfilDocente
+    FormPerfilDocente,
+    FormContacto
 ],
   templateUrl: './docentes.html',
   styleUrl: './docentes.css'

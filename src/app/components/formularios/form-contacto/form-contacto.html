@@ -7,7 +7,7 @@
                     <mat-label>Teléfono {{i + 1}}</mat-label>
                     <div formArrayName="telefonos">
                         <input matInput type="text" [formControlName]="i" required>
-                        @if (telefonos.length > 1) {
+                        @if (telefonos.length > 1 && datosContacto.enabled) {
                             <button mat-icon-button type="button" title="Quitar teléfono" (click)="eliminarTelefono(i)">
                                 <mat-icon>remove</mat-icon>
                             </button>
@@ -25,9 +25,19 @@
                     </div>                   
                 </mat-form-field>
             }
-            <button mat-icon-button type="button" title="Agregar teléfono" (click)="agregarTelefono()">
-                <mat-icon>add</mat-icon>
-            </button>
+            @if (datosContacto.enabled) {
+                <button mat-icon-button type="button" title="Agregar teléfono" (click)="agregarTelefono()">
+                    <mat-icon>add</mat-icon>
+                </button>
+            }
+        </div>
+        <div class="button-container">
+            @if (datosContacto.enabled) {
+                <button mat-raised-button color="primary" type="submit" (click)="guardarDatos()">Guardar</button>
+            }
+            @if (datosContacto.disabled && modificable()) {
+                <button mat-raised-button type="button" (click)="activarFormulario()">Modificar</button>
+            }
         </div>
     </fieldset>
 </form>
