@@ -15,7 +15,14 @@
                     <div class="form-container">
                         <mat-form-field>
                             <mat-label>Contraseña actual</mat-label>
-                            <input matInput type="password" name="contrasenaActual" id="contrasenaActual" formControlName="contrasenaActual" required>
+                            <input matInput [type]="mostrarActual() ? 'text' : 'password'" 
+                                name="contrasenaActual" 
+                                id="contrasenaActual" 
+                                formControlName="contrasenaActual"
+                                required>
+                            <button matIconButton matSuffix (click)="mostrarActual.set(!mostrarActual())">
+                                <mat-icon>{{mostrarActual() ? 'visibility' : 'visibility_off'}}</mat-icon>
+                            </button>                            
                             @if(contrasenaActual.hasError('required')) {
                                 <mat-error>La contraseña actual es obligatoria.</mat-error>
                             }
@@ -28,12 +35,15 @@
                         </mat-form-field>
                         <mat-form-field>
                             <mat-label>Nueva contraseña</mat-label>
-                            <input matInput type="password" 
+                            <input matInput [type]="mostrarNueva() ? 'text' : 'password'" 
                                 name="nuevaContrasena" 
                                 id="nuevaContrasena" 
                                 formControlName="nuevaContrasena" 
                                 (keyup)="onPassChange()"
                                 required>
+                            <button matIconButton matSuffix (click)="mostrarNueva.set(!mostrarNueva())">
+                                <mat-icon>{{mostrarNueva() ? 'visibility' : 'visibility_off'}}</mat-icon>
+                            </button>
                             @if(nuevaContrasena.hasError('required')) {
                                 <mat-error>La nueva contraseña es obligatoria.</mat-error>
                             }
@@ -49,12 +59,15 @@
                         </mat-form-field>
                         <mat-form-field>
                             <mat-label>Confirmar contraseña</mat-label>
-                            <input matInput type="password" 
+                            <input matInput [type]="mostrarConfirmar() ? 'text' : 'password'" 
                                 name="confirmarContrasena" 
                                 id="confirmarContrasena" 
                                 formControlName="confirmarContrasena" 
                                 (keyup)="onPassChange()"
-                                required >
+                                required>
+                            <button matIconButton matSuffix (click)="mostrarConfirmar.set(!mostrarConfirmar())">
+                                <mat-icon>{{mostrarConfirmar() ? 'visibility' : 'visibility_off'}}</mat-icon>
+                            </button>
                             @if(confirmarContrasena.hasError('required')) {
                                 <mat-error>La confirmación de contraseña es obligatoria.</mat-error>
                             }

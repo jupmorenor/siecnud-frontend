@@ -1,8 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { ReactiveFormsModule, AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormContacto } from "../../formularios/form-contacto/form-contacto";
 import { FormPerfil } from "../../formularios/form-perfil/form-perfil";
@@ -16,6 +17,7 @@ import { Alerts } from '../../../services/alerts';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatIconModule,
     ReactiveFormsModule,
     FormContacto,
     FormPerfil,
@@ -32,6 +34,10 @@ export class Perfil {
   passform: FormGroup;
   formBuilder = inject(FormBuilder);
   alert = inject(Alerts);
+
+  mostrarActual = signal(false);
+  mostrarNueva = signal(false);
+  mostrarConfirmar = signal(false);
 
   constructor() {
     this.passform = this.formBuilder.group({
@@ -70,7 +76,6 @@ export class Perfil {
       } else {
         this.confirmarContrasena.setErrors(errs2);
       }
-
     }
   }
 
