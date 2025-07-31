@@ -8,6 +8,78 @@
         <app-form-perfil [usuarioId]="usuarioId"></app-form-perfil>
         <app-form-contacto [usuarioId]="usuarioId"></app-form-contacto>
         <app-form-perfil-docente [usuarioId]="usuarioId"></app-form-perfil-docente>
+        @if (cambiarContrasena) {
+            <form [formGroup]="passform">
+                <fieldset>
+                    <legend><h2>Cambiar contraseña</h2></legend>
+                    <div class="form-container">
+                        <mat-form-field>
+                            <mat-label>Contraseña actual</mat-label>
+                            <input matInput type="password" name="contrasenaActual" id="contrasenaActual" formControlName="contrasenaActual" required>
+                            @if(contrasenaActual.hasError('required')) {
+                                <mat-error>La contraseña actual es obligatoria.</mat-error>
+                            }
+                            @if(contrasenaActual.hasError('minlength')) {
+                                <mat-error>La contraseña debe tener al menos 6 caracteres.</mat-error>
+                            }
+                            @if(contrasenaActual.hasError('maxlength')) {
+                                <mat-error>La contraseña no puede exceder los 20 caracteres.</mat-error>
+                            }
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Nueva contraseña</mat-label>
+                            <input matInput type="password" 
+                                name="nuevaContrasena" 
+                                id="nuevaContrasena" 
+                                formControlName="nuevaContrasena" 
+                                (keyup)="onPassChange()"
+                                required>
+                            @if(nuevaContrasena.hasError('required')) {
+                                <mat-error>La nueva contraseña es obligatoria.</mat-error>
+                            }
+                            @if(nuevaContrasena.hasError('minlength')) {
+                                <mat-error>La nueva contraseña debe tener al menos 6 caracteres.</mat-error>
+                            }
+                            @if(nuevaContrasena.hasError('maxlength')) {
+                                <mat-error>La nueva contraseña no puede exceder los 20 caracteres.</mat-error>
+                            }
+                            @if(nuevaContrasena.hasError('no_coinciden')) {
+                                <mat-error>Las contraseñas no coinciden.</mat-error>
+                            }
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Confirmar contraseña</mat-label>
+                            <input matInput type="password" 
+                                name="confirmarContrasena" 
+                                id="confirmarContrasena" 
+                                formControlName="confirmarContrasena" 
+                                (keyup)="onPassChange()"
+                                required >
+                            @if(confirmarContrasena.hasError('required')) {
+                                <mat-error>La confirmación de contraseña es obligatoria.</mat-error>
+                            }
+                            @if(confirmarContrasena.hasError('minlength')) {
+                                <mat-error>La confirmación de contraseña debe tener al menos 6 caracteres.</mat-error>
+                            }
+                            @if(confirmarContrasena.hasError('maxlength')) {
+                                <mat-error>La confirmación de contraseña no puede exceder los 20 caracteres.</mat-error>
+                            }
+                            @if(confirmarContrasena.hasError('no_coinciden')) {
+                                <mat-error>Las contraseñas no coinciden.</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+                    <div class="button-container">
+                        <button mat-raised-button type="button" [disabled]="passform.invalid" (click)="guardar()" >Guardar</button>
+                        <button mat-raised-button type="button" (click)="cancelar()">Cancelar</button>
+                    </div>
+                </fieldset>
+            </form>
+        } @else {
+            <div class="button-container">
+                <button mat-raised-button type="button" (click)="cambiarContrasena=true">Cambiar contraseña</button>
+            </div>
+        }
     </mat-card-content>
         <!-- datos basicos: para crear docente y en perfil (form-perfil)
         datos contacto: solo en perfil (form-contacto)
