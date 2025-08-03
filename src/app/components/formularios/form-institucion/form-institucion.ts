@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { Institucion } from '../../../models/Institucion';
-import { Alerts } from '../../../services/alerts';
+import { Alerts } from '../../../services/alerts/alerts';
 import { Router } from '@angular/router';
 
 @Component({
@@ -151,7 +151,6 @@ export class FormInstitucion implements OnInit, OnChanges {
   }
 
   eliminarTelefono(index: number) {
-    console.log('Eliminar teléfono en el índice:', index);
     this.telefonos.removeAt(index);
   }
 
@@ -169,9 +168,9 @@ export class FormInstitucion implements OnInit, OnChanges {
     ]
     this.municipios = munip.filter(m => m.departamento === event.value);
     this.upzs = [];
-    this.datosInstitucion.get('municipio')?.setValue('');
-    this.datosInstitucion.get('direccion_local_id')?.setValue('');
-    this.datosInstitucion.get('upz')?.setValue('');
+    this.datosInstitucion.get('municipio')?.reset('');
+    this.datosInstitucion.get('direccion_local_id')?.reset('');
+    this.datosInstitucion.get('upz')?.reset('');
   }
 
   seleccionarMunicipio(event: any) {
@@ -183,8 +182,8 @@ export class FormInstitucion implements OnInit, OnChanges {
       { id: '005', nombre: 'Localidad 5', municipio: '009' },
     ];
     this.localidades = localList.filter(l => l.municipio === event.value);
-    this.datosInstitucion.get('direccion_local_id')?.setValue('');
-    this.datosInstitucion.get('upz_id')?.setValue('');
+    this.datosInstitucion.get('direccion_local_id')?.reset('');
+    this.datosInstitucion.get('upz_id')?.reset('');
   }
 
   seleccionarLocalidad(event: any) {
@@ -201,7 +200,7 @@ export class FormInstitucion implements OnInit, OnChanges {
       { id: '010', nombre: 'UPZ 10', direccion_local_id: '005' }
     ];
     this.upzs = upzList.filter(u => u.direccion_local_id === event.value);
-    this.datosInstitucion.get('upz_id')?.setValue('');
+    this.datosInstitucion.get('upz_id')?.reset('');
   }
 
   registrarInstitucion() {

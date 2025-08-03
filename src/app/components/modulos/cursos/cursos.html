@@ -5,12 +5,12 @@
         </mat-card-title>
         @if (institucion !== null) {
             <mat-card-subtitle>
-                <h2>{{ institucion.nombre }}</h2>
+                <h2>{{ institucion()?.nombre }}</h2>
             </mat-card-subtitle>
         } 
     </mat-card-header>
     <mat-card-content class="content-container">
-        @if (institucion === null) {
+        @if (institucion() === null) {
             <app-listado-instituciones
                 [usuarioId]="1"
                 (institucionSelected)="institucionSelected($event)"

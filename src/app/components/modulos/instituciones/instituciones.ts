@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { 
@@ -10,7 +10,7 @@ import {
 } from 'angular2-smart-table';
 import { TableSettings } from '../../../models/TableSettings';
 import { FormInstitucion } from "../../formularios/form-institucion/form-institucion";
-import { Alerts } from '../../../services/alerts';
+import { Alerts } from '../../../services/alerts/alerts';
 
 @Component({
   selector: 'app-instituciones',
@@ -31,7 +31,7 @@ export class Instituciones implements OnInit {
   protected instituciones: LocalDataSource;
   protected institucionSeleccionada: number = 0;
 
-  protected selectedTab: number = 0;
+  protected selectedTab = signal(0);
 
   constructor() {
     const columnas: IColumns = {
@@ -66,12 +66,8 @@ export class Instituciones implements OnInit {
   }
 
   verInstitucion(event: CustomActionEvent) {
-    this.setTab(1);
+    this.selectedTab.set(1);
     this.institucionSeleccionada = event.data.id;
-  }
-
-  setTab(index: number) {
-    this.selectedTab = index;
   }
 
   onVeredicto(event: string) {

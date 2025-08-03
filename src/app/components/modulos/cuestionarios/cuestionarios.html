@@ -3,24 +3,24 @@
         <mat-card-title>
             <h1>Módulo de Cuestionarios</h1>
         </mat-card-title>
-        @if (institucion !== null) {
+        @if (institucion() !== null) {
             <mat-card-subtitle>
-                <h2>{{ institucion.nombre }}</h2>
-                @if (curso !== null) {
-                    <h2>{{ curso.nombre }}</h2>
+                <h2>{{ institucion()?.nombre }}</h2>
+                @if (curso() !== null) {
+                    <h2>{{ curso()?.nombre }}</h2>
                 } 
             </mat-card-subtitle>
         } 
     </mat-card-header>
     <mat-card-content class="content-container">
-        @if (institucion === null) {
+        @if (institucion() === null) {
             <app-listado-instituciones
                 [usuarioId]="1"
-                (institucionSelected)="institucionSelected($event)"
+                (institucionSelected)="institucion.set($event)"
             ></app-listado-instituciones>
-        } @else if (curso === null) {
+        } @else if (curso() === null) {
             <app-listado-cursos
-                [institucionId]="institucion.id"
+                [institucionId]="institucion()?.id"
                 (cursoSelected)="cursoSelected($event)"
             ></app-listado-cursos>
         } @else {

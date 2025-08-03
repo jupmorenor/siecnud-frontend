@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { 
   Angular2SmartTableModule,
@@ -25,7 +25,7 @@ export class Cursos {
 
   protected settings: Settings;
   protected cursos: LocalDataSource;
-  protected institucion: Institucion | null = null;
+  protected institucion = signal<Institucion | null>(null);
 
   constructor() {
     const columnas: IColumns = {
@@ -48,7 +48,7 @@ export class Cursos {
 
   cargarCursos(): void {
     // Cargar cursos con la institucion seleccionada
-    if (this.institucion !== null) {
+    if (this.institucion() !== null) {
       this.cursos.load([
         { id: 1, nombre: 'Curso A' },
         { id: 2, nombre: 'Curso B' },
@@ -59,7 +59,7 @@ export class Cursos {
   }
 
   institucionSelected(institucion: Institucion) {
-    this.institucion = institucion;
+    this.institucion.set(institucion);
     this.cargarCursos();
   }
 

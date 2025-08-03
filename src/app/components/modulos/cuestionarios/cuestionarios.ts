@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { 
   Angular2SmartTableModule,
@@ -29,8 +29,8 @@ export class Cuestionarios {
   protected settings: Settings;
   protected cuestionarios: LocalDataSource;
 
-  protected institucion: Institucion | null = null;
-  protected curso: Curso | null = null;
+  protected institucion = signal<Institucion | null>(null);
+  protected curso = signal<Curso | null>(null);
 
   constructor() {
     const columnas: IColumns = {
@@ -61,7 +61,7 @@ export class Cuestionarios {
 
   cargarCuestionarios(): void {
     // Cargar cuestionarios con la institucion y curso seleccionados
-    if (this.institucion !== null && this.curso !== null) {
+    if (this.institucion() !== null && this.curso() !== null) {
       this.cuestionarios.load([
         { id: 1, nombre: 'Cuestionario A', estado: 'Activo', fecha_limite: '2023-12-31' },
         { id: 2, nombre: 'Cuestionario B', estado: 'Inactivo', fecha_limite: '2024-01-15' },
@@ -71,12 +71,8 @@ export class Cuestionarios {
     }
   }
 
-  institucionSelected(institucion: Institucion) {
-    this.institucion = institucion;
-  }
-
   cursoSelected(curso: Curso) {
-    this.curso = curso;
+    this.curso.set(curso);
     this.cargarCuestionarios();
   }
 
@@ -97,7 +93,5 @@ export class Cuestionarios {
         break;
     }
   }
-
-
-
+  
 }

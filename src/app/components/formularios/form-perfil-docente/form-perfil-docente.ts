@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { Alerts } from '../../../services/alerts';
+import { Alerts } from '../../../services/alerts/alerts';
 
 
 @Component({

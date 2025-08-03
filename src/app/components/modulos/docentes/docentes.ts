@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { 
@@ -14,7 +14,7 @@ import { Institucion } from '../../../models/Institucion';
 import { FormPerfil } from "../../formularios/form-perfil/form-perfil";
 import { FormPerfilDocente } from "../../formularios/form-perfil-docente/form-perfil-docente";
 import { FormContacto } from '../../formularios/form-contacto/form-contacto';
-import { Alerts } from '../../../services/alerts';
+import { Alerts } from '../../../services/alerts/alerts';
 
 @Component({
   selector: 'app-docentes',
@@ -36,9 +36,9 @@ export class Docentes {
 
   protected settings: Settings;
   protected docentes: LocalDataSource;
-  protected institucion: Institucion | null = null;
-  protected selectedTab: number = 0;
-  protected docenteSeleccionado: number = -1
+  protected institucion = signal<Institucion | null>(null);
+  protected selectedTab = signal(0);
+  protected docenteSeleccionado = signal(-1);
 
   constructor() {
     const columnas: IColumns = {
@@ -63,7 +63,7 @@ export class Docentes {
 
   cargarDocentes(): void {
     // Cargar docentes con la institucion seleccionada
-    if (this.institucion !== null) {
+    if (this.institucion() !== null) {
       this.docentes.load([
         { id: 1, nombre: 'Docente A', cargo: 'Profesor' },
         { id: 2, nombre: 'Docente B', cargo: 'Asistente' },
@@ -76,20 +76,19 @@ export class Docentes {
   }
 
   institucionSelected(institucion: Institucion) {
-    this.institucion = institucion;
+    this.institucion.set(institucion);
     this.cargarDocentes();
   }
 
   agregarDocente() {
-    this.setTab(1);
-    this.docenteSeleccionado = -1;
-    console.log('Agregar docentes');
+    this.selectedTab.set(1);
+    this.docenteSeleccionado.set(-1);
   }
 
   eventoDocentes(event: CustomActionEvent) {
     if (event.action === 'ver') {
-      this.setTab(1);
-      this.docenteSeleccionado = event.data.id;
+      this.selectedTab.set(1);
+      this.docenteSeleccionado.set(event.data.id);
     } else if (event.action === 'retirar') {
       this.alert.confirm(true).then((result) => {
         if (result.isConfirmed) {
@@ -102,12 +101,8 @@ export class Docentes {
   }
 
   recargarDocentes() {
-    this.setTab(0);
+    this.selectedTab.set(0);
     this.cargarDocentes();
-  }
-
-  setTab(index: number) {
-    this.selectedTab = index;
   }
 
 }

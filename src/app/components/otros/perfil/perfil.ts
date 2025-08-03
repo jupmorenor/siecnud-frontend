@@ -8,7 +8,7 @@ import { ReactiveFormsModule, AbstractControl, FormBuilder, FormGroup, Validator
 import { FormContacto } from "../../formularios/form-contacto/form-contacto";
 import { FormPerfil } from "../../formularios/form-perfil/form-perfil";
 import { FormPerfilDocente } from "../../formularios/form-perfil-docente/form-perfil-docente";
-import { Alerts } from '../../../services/alerts';
+import { Alerts } from '../../../services/alerts/alerts';
 
 @Component({
   selector: 'app-perfil',
@@ -28,16 +28,16 @@ import { Alerts } from '../../../services/alerts';
 })
 export class Perfil {
 
-  usuarioId: number = 0;
-  cambiarContrasena: boolean = false;
+  protected usuarioId: number = 0;
 
-  passform: FormGroup;
-  formBuilder = inject(FormBuilder);
-  alert = inject(Alerts);
+  protected passform: FormGroup;
+  protected formBuilder = inject(FormBuilder);
+  protected alert = inject(Alerts);
 
-  mostrarActual = signal(false);
-  mostrarNueva = signal(false);
-  mostrarConfirmar = signal(false);
+  protected cambiarContrasena = signal(false);
+  protected mostrarActual = signal(false);
+  protected mostrarNueva = signal(false);
+  protected mostrarConfirmar = signal(false);
 
   constructor() {
     this.passform = this.formBuilder.group({
@@ -91,7 +91,7 @@ export class Perfil {
   }
 
   cancelar() {
-    this.cambiarContrasena = false;
+    this.cambiarContrasena.set(false);
     this.passform.reset();
   }
 

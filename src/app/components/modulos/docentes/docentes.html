@@ -3,22 +3,22 @@
         <mat-card-title>
             <h1>Módulo de Docentes</h1>
         </mat-card-title>
-        @if (institucion !== null) {
+        @if (institucion() !== null) {
             <mat-card-subtitle>
-                <h2>{{ institucion.nombre }}</h2>
+                <h2>{{ institucion()?.nombre }}</h2>
             </mat-card-subtitle>
         }   
     </mat-card-header>
     <mat-card-content class="content-container">
-        @if (institucion === null) {
+        @if (institucion() === null) {
             <app-listado-instituciones 
                 [usuarioId]="1" 
                 (institucionSelected)="institucionSelected($event)"
             ></app-listado-instituciones>
         } @else {
             <mat-tab-group
-                [selectedIndex]="selectedTab"
-                (selectedIndexChange)="setTab($event)"
+                [selectedIndex]="selectedTab()"
+                (selectedIndexChange)="selectedTab.set($event)"
             >
                 <mat-tab label="Listado">
                     <angular2-smart-table
@@ -29,10 +29,10 @@
                     />
                 </mat-tab>
                 <mat-tab label="Detalle">
-                    <app-form-perfil [usuarioId]="docenteSeleccionado" [modificable]="false" (guardado)="recargarDocentes()"></app-form-perfil>
-                    @if (docenteSeleccionado >= 0) {
-                        <app-form-contacto [usuarioId]="docenteSeleccionado" [modificable]="false"></app-form-contacto>
-                        <app-form-perfil-docente [usuarioId]="docenteSeleccionado" [modificable]="false"></app-form-perfil-docente>
+                    <app-form-perfil [usuarioId]="docenteSeleccionado()" [modificable]="false" (guardado)="recargarDocentes()"></app-form-perfil>
+                    @if (docenteSeleccionado() >= 0) {
+                        <app-form-contacto [usuarioId]="docenteSeleccionado()" [modificable]="false"></app-form-contacto>
+                        <app-form-perfil-docente [usuarioId]="docenteSeleccionado()" [modificable]="false"></app-form-perfil-docente>
                     }
                 </mat-tab>
             </mat-tab-group>
