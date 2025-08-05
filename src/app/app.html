@@ -1,5 +1,5 @@
 <mat-toolbar class="header">
-  @if(loggedIn) {
+  @if(loggedIn()) {
     <button mat-icon-button (click)="toggleSidenav()">
       <mat-icon matListItemIcon>menu</mat-icon>
     </button>
@@ -7,7 +7,7 @@
     <div></div>
   }
   <h1>SIECNUD</h1>
-  @if (loggedIn) {
+  @if (loggedIn()) {
     <button mat-raised-button [matMenuTriggerFor]="userMenu">
       <mat-icon matListItemIcon>person</mat-icon>
       <span matListItemTitle>Usuario</span>
@@ -36,7 +36,7 @@
   }
 </mat-toolbar>
 <mat-drawer-container class="sidenav-container">
-  @if (loggedIn) {
+  @if (loggedIn()) {
     <mat-drawer [(opened)]="open" mode="side" class="sidenav-list">
       <mat-nav-list>
         @for (option of menu; track option.name) {

@@ -4,7 +4,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { MAT_DATE_LOCALE, provideNativeDateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 
@@ -38,8 +38,8 @@ export class App {
   
   protected title = 'siecnud-frontend';
   protected menu: any[];
-  protected open = false;
-  protected loggedIn = false;
+  protected open = signal(false);
+  protected loggedIn = signal(false);
 
   constructor() {
     this.menu = [
@@ -52,7 +52,7 @@ export class App {
   }
 
   protected toggleSidenav() {
-    this.open = !this.open;
+    this.open.set(!this.open());
   }
 
   protected navigate(route: string) {
@@ -60,12 +60,12 @@ export class App {
   }
 
   protected logout() {
-    this.loggedIn = false;
+    this.loggedIn.set(false);
     this.navigate('/');
   }
 
   protected login() {
-    this.loggedIn = true;
+    this.loggedIn.set(true);
     this.navigate('/home');
   }
 

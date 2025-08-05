@@ -27,7 +27,7 @@ export class Alerts {
     });
   }
 
-  error(err: Error): Promise<any> {
+  error(err: Error): Promise<SweetAlertResult> {
     return Swal.fire({
         title: 'Error',
         titleText: err.name,
@@ -36,7 +36,7 @@ export class Alerts {
     });
   }
 
-  loading(): void{
+  loading(): void {
     Swal.fire({
         title: 'Cargando...',
         allowOutsideClick: false,
