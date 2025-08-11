@@ -1,0 +1,14 @@
+<div class="modal-container">
+    <h1 matDialogTitle>Asignar docentes</h1>
+    <div matDialogContent>
+        <angular2-smart-table
+            [settings]="settings"
+            [source]="docentes"
+            (rowSelect)="onRowSelect($event)"
+        ></angular2-smart-table>
+    </div>
+    <div matDialogActions>
+        <button mat-raised-button (click)="dialogRef.close()">Cancelar</button>
+        <button mat-raised-button [mat-dialog-close]="docentesSeleccionados">Aceptar</button>
+    </div>
+</div>

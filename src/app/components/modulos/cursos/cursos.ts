@@ -1,5 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { 
   Angular2SmartTableModule,
   LocalDataSource,
@@ -10,11 +11,15 @@ import {
 import { ListadoInstituciones } from "../../otros/listado-instituciones/listado-instituciones";
 import { TableSettingsWithAdd2 } from '../../../models/TableSettings';
 import { Institucion } from '../../../models/Institucion';
+import { Alerts } from '../../../services/alerts/alerts';
+import { ModalDocentes } from './modal-docentes/modal-docentes';
+import { Curso } from '../../../models/curso';
 
 @Component({
   selector: 'app-cursos',
   imports: [
     MatCardModule,
+    MatDialogModule,
     Angular2SmartTableModule,
     ListadoInstituciones,
   ],
@@ -22,6 +27,9 @@ import { Institucion } from '../../../models/Institucion';
   styleUrl: './cursos.css'
 })
 export class Cursos {
+
+  protected alert = inject(Alerts);
+  protected dialog = inject(MatDialog);
 
   protected settings: Settings;
   protected cursos: LocalDataSource;
@@ -64,19 +72,52 @@ export class Cursos {
   }
 
   agregarCurso() {
-    console.log('Agregar nuevo curso');
+    this.alert.nuevoCurso().then((result) => {
+      if (result.isConfirmed && result.value) {
+        const nuevoCurso = { id: this.cursos.count() + 1, nombre: result.value };
+        this.cursos.add(nuevoCurso);
+        this.alert.success().then(() => {
+          this.cursos.refresh();
+          console.log('Curso agregado:', nuevoCurso);
+        });
+      }
+    });
   }
 
   eventoCursos(event: CustomActionEvent) {
     switch (event.action) {
       case 'asignar':
-        console.log('Asignar docente al curso', event.data);
+        const dialog = this.dialog.open(ModalDocentes, {
+          data: {
+            curso: event.data as Curso,
+            institucion: this.institucion()
+          },
+          maxWidth: '1200px',
+          maxHeight: '800px',
+          width: '1200px',
+          height: '450px',
+        });
+        dialog.afterClosed().subscribe(result => {
+          if (result) {
+            // Agregar tipos correctos
+            console.log('Docente asignado:', result);
+          }
+        });
         break;
       case 'registrar':
-        console.log('Registrar estudiantes en el curso', event.data);
+        this.alert.cargarArchivo().then((result) => {
+          if (result.isConfirmed && result.value) {
+            console.log('Registrar estudiantes en el curso', result.value);
+          }
+        });
         break;
       case 'cerrar':
-        console.log('Cerrar curso', event.data);
+        this.alert.confirm(true).then((result) => {
+          if (result.isConfirmed) {
+            console.log('Curso cerrado', event.data);
+            this.cursos.remove(event.data);
+          }
+        });
         break;
     }
   }

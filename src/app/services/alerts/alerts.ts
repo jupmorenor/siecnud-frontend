@@ -8,7 +8,35 @@ export class Alerts {
 
   constructor() { }
 
-  confirm(eliminar?: Boolean): Promise<SweetAlertResult> {
+  nuevoCurso(): Promise<SweetAlertResult<string>> {
+    return Swal.fire({
+        titleText: 'Agregar nuevo curso',
+        input: 'text',
+        icon: 'info',
+        inputPlaceholder: 'Nombre del curso',
+        showCancelButton: true,
+        cancelButtonText: 'Cancelar',
+        confirmButtonText: 'Aceptar',
+        inputValidator: (value) => value? '' : 'Debe ingresar un nombre para el curso',
+    });
+  }
+
+  cargarArchivo(): Promise<SweetAlertResult<File>> {
+    return Swal.fire({
+        titleText: 'Cargar listado de estudiantes',
+        input: 'file',
+        icon: 'info',
+        inputAttributes: {
+            'accept': '.csv',
+            'aria-label': 'Cargar listado de estudiantes'
+        },
+        showCancelButton: true,
+        cancelButtonText: 'Cancelar',
+        confirmButtonText: 'Aceptar',
+    });
+  }
+
+  confirm(eliminar?: Boolean): Promise<SweetAlertResult<void>> {
     return Swal.fire({
         title: `${eliminar ? 'Eliminar' : 'Guardar'} datos`,
         text: `¿Está seguro de ${eliminar ? 'Eliminar' : 'Guardar'} los datos?`,
@@ -19,7 +47,7 @@ export class Alerts {
     });
   }
 
-  success(eliminar?: Boolean): Promise<SweetAlertResult> {
+  success(eliminar?: Boolean): Promise<SweetAlertResult<void>> {
     return Swal.fire({
         title: 'Exito!',
         text: `Datos ${eliminar ? 'eliminados' : 'guardados'} con éxito`,
@@ -27,7 +55,7 @@ export class Alerts {
     });
   }
 
-  error(err: Error): Promise<SweetAlertResult> {
+  error(err: Error): Promise<SweetAlertResult<void>> {
     return Swal.fire({
         title: 'Error',
         titleText: err.name,
