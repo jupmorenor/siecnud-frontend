@@ -9,7 +9,7 @@ import {
 } from 'angular2-smart-table';
 import { ListadoInstituciones } from "../../otros/listado-instituciones/listado-instituciones";
 import { ListadoCursos } from '../../otros/listado-cursos/listado-cursos';
-import { TableSettings } from '../../../models/TableSettings';
+import { TableSettingsWithAdd2, actions4 } from '../../../models/TableSettings';
 import { Institucion } from '../../../models/Institucion';
 import { Curso } from '../../../models/curso';
 
@@ -53,8 +53,9 @@ export class Cuestionarios {
       }
     };
     this.settings = {
-      ...TableSettings,
-      columns: columnas
+      ...TableSettingsWithAdd2,
+      columns: columnas,
+      actions: actions4,
     };
     this.cuestionarios = new LocalDataSource();
   }
@@ -82,14 +83,26 @@ export class Cuestionarios {
 
   eventoCuestionarios(event: CustomActionEvent) {
     switch (event.action) {
-      case 'editar':
-        console.log('Editar cuestionario', event.data);
+      case 'ver':
+        console.log('Ver detalle del cuestionario', event.data);
         break;
-      case 'eliminar':
-        console.log('Eliminar cuestionario', event.data);
+      case 'responder':
+        console.log('Responder cuestionario', event.data);
         break;
-      case 'verResultados':
-        console.log('Ver resultados del cuestionario', event.data);
+      case 'validar':
+        console.log('Validar cuestionario', event.data);
+        break;
+      case 'calificar':
+        console.log('Calificar cuestionario', event.data);
+        break;
+      case 'reporte_individual':
+        console.log('Ver reporte individual del curso', event.data);
+        break;
+      case 'reporte_consolidado':
+        console.log('Ver reporte consolidado del curso', event.data);
+        break;
+      case 'cerrar':
+        console.log('Cerrar cuestionario', event.data);
         break;
     }
   }

@@ -5,10 +5,10 @@ import {
   Angular2SmartTableModule,
   LocalDataSource,
   Settings,
-  CustomActionEvent,
   IColumns,
   RowSelectionEvent
 } from 'angular2-smart-table';
+import { baseActions } from '../../../../models/TableSettings';
 
 @Component({
   selector: 'app-modal-docentes',
@@ -34,7 +34,7 @@ export class ModalDocentes implements OnInit {
       id: {
         title: 'ID',
         type: 'text',
-        width: '5%',
+        width: '6%',
         isEditable: false,
       },
       nombre: {
@@ -49,9 +49,11 @@ export class ModalDocentes implements OnInit {
           type: 'list',
           config: {
             list: [
-              { value: 'Titular', title: 'Titular' },
-              { value: 'Pasante', title: 'Pasante' },
-              { value: 'Innovador', title: 'Innovador' }
+              { value: '1', title: 'Titular' },
+              { value: '2', title: 'Pasante' },
+              { value: '3', title: 'Innovador' },
+              { value: '4', title: 'Asistente' },
+              { value: '5', title: 'Profesor' }
             ],
           },
         }
@@ -60,10 +62,8 @@ export class ModalDocentes implements OnInit {
     this.settings = {
       columns: columns,
       actions: {
-        position: 'right',
-        add: false,
+        ...baseActions,
         edit: true,
-        delete: false,
       },
       edit: {
         editButtonContent: '<i class="material-icons" title="Editar">edit</i>',

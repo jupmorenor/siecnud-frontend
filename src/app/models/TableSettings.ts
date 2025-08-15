@@ -1,10 +1,15 @@
 import { Settings, Actions } from "angular2-smart-table";
 
-const actions: Actions = {
+export const baseActions: Actions = {
     position: 'right',
+    columnTitle: 'Acciones',
     add: false,
     edit: false,
     delete: false,
+}
+
+const actions: Actions = {
+    ...baseActions,
     custom: [
         {
             name: 'ver',
@@ -14,10 +19,8 @@ const actions: Actions = {
 }
 
 const actions2: Actions = {
-    position: 'right',
+    ...baseActions,
     add: true,
-    edit: false,
-    delete: false,
     custom: [
         {
             name: 'ver',
@@ -31,10 +34,8 @@ const actions2: Actions = {
 }
 
 const actions3: Actions = {
-    position: 'right',
+    ...baseActions,
     add: true,
-    edit: false,
-    delete: false,
     custom: [
         {
             name: 'asignar',
@@ -48,6 +49,41 @@ const actions3: Actions = {
             name: 'cerrar',
             title: '<i class="material-icons" title="Cerrar">remove_circle</i>'
         }
+    ]
+}
+
+export const actions4: Actions = {
+    ...baseActions,
+    add: true,
+    custom: [
+        {
+            name: 'ver',
+            title: '<i class="material-icons" title="Ver detalle">visibility</i>'
+        },
+        {
+            name: 'responder',
+            title: '<i class="material-icons" title="Responder">edit</i>'
+        },
+        {
+            name: 'validar',
+            title: '<i class="material-icons" title="Validar">check_circle</i>'
+        },
+        {
+            name: 'calificar',
+            title: '<i class="material-icons" title="Calificar">grading</i>',
+        },
+        {
+            name: 'reporte_individual',
+            title: '<i class="material-icons" title="Ver reporte individual de curso">groups</i>',
+        },
+        {
+            name: 'reporte_consolidado',
+            title: '<i class="material-icons" title="Ver reporte consolidado de curso">fact_check</i>',
+        },
+        {
+            name: 'cerrar',
+            title: '<i class="material-icons" title="Cerrar">lock</i>',
+        },
     ]
 }
 
@@ -73,6 +109,3 @@ export const TableSettingsWithAdd2: Settings = {
     },
     actions: actions3
 }
-
-
-
