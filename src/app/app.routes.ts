@@ -7,6 +7,7 @@ import { Cuestionarios } from './components/modulos/cuestionarios/cuestionarios'
 import { Perfil } from './components/otros/perfil/perfil';
 import { Registro } from './components/pagina/registro/registro';
 import { Web } from './components/pagina/web/web';
+import { DetalleCuestionario } from './components/modulos/cuestionarios/detalle-cuestionario/detalle-cuestionario';
 
 export const routes: Routes = [
     {
@@ -36,6 +37,10 @@ export const routes: Routes = [
     {
         path: 'cuestionarios',
         component: Cuestionarios
+    },
+    {
+        path: 'detalle-cuestionario',
+        component: DetalleCuestionario,
     },
     {
         path: 'perfil',

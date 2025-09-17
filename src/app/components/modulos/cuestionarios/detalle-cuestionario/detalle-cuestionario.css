@@ -1,0 +1,39 @@
+.subcontainer {
+    display: flex;
+    justify-content: space-around;
+    column-gap: 10px;
+    padding: 1%;
+}
+
+.cuestionario {
+    text-align: start;
+    overflow-y: visible;
+    border-radius: 10px;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 1%;
+    box-sizing: border-box;
+}
+
+.cuestionario-form {
+    width: 45%;
+    max-height: 675px;
+    overflow-y: auto;
+}
+
+@media (max-width: 1024px) {
+    .subcontainer {
+        flex-direction: column;
+        row-gap: 20px;
+    }
+
+    .cuestionario-form {
+        width: 100%;
+        max-height: none;
+        overflow-y: visible;
+    }
+}

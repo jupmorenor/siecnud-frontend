@@ -1,0 +1,20 @@
+<div class="canvas-container">
+    <canvas class="malla" #malla ></canvas>
+    <mat-menu #contextMenu="matMenu" class="context-menu" id="canvasContextMenu">
+        <button mat-menu-item (click)="crearGrupo()">
+            <span matListItemTitle>Crear Concepto</span>
+        </button>
+        <button mat-menu-item (click)="agregarEnlace()" [disabled]="!selectedGroup">
+            <span matListItemTitle>Enlazar Conceptos</span>
+        </button>
+        <button mat-menu-item (click)="eliminarGrupo()" [disabled]="!selectedGroup">
+            <span matListItemTitle>Eliminar Concepto</span>
+        </button>
+    </mat-menu>
+</div>
+<div style="visibility: hidden; position: fixed"
+    [style.top]="contextMenuPosition().y + 'px'"
+    [style.left]="contextMenuPosition().x + 'px'"
+    [matMenuTriggerFor]="contextMenu">
+</div>
+

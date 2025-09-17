@@ -1,4 +1,5 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, inject } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { 
   Angular2SmartTableModule,
@@ -28,6 +29,9 @@ export class Cuestionarios {
 
   protected settings: Settings;
   protected cuestionarios: LocalDataSource;
+
+  protected router = inject(Router);
+  protected route = inject(ActivatedRoute);
 
   protected institucion = signal<Institucion | null>(null);
   protected curso = signal<Curso | null>(null);
@@ -79,6 +83,7 @@ export class Cuestionarios {
 
   agregarCuestionario() {
     console.log('Agregar nuevo cuestionario');
+    this.router.navigate(['detalle-cuestionario']);
   }
 
   eventoCuestionarios(event: CustomActionEvent) {
