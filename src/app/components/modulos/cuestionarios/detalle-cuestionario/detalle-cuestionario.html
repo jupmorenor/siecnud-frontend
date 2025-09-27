@@ -5,58 +5,92 @@
         </mat-card-title>
     </mat-card-header>
     <mat-card-content class="content-container">
-        <div class="subcontainer" >
-            <form [formGroup]="cuestionario" class="cuestionario-form">
-                @for (pregunta of preguntas.controls; let i = $index; track i) {
-                    <fieldset class="cuestionario" formArrayName="preguntas">
-                        <legend><h3>Pregunta {{ i + 1 }}</h3></legend>
-                        <div class="form-container" [formGroupName]="i">
-                            <mat-form-field>
-                                <mat-label>Pregunta {{ i + 1 }}</mat-label>
-                                <textarea matInput type="text" formControlName="enunciado" placeholder="Texto de la pregunta" ></textarea>
-                                @if (pregunta.get('enunciado')?.hasError('required')) {
-                                    <mat-error>
-                                        La pregunta es obligatoria.
-                                    </mat-error>
-                                }
-                                @if (pregunta.get('enunciado')?.hasError('minlength')) {
-                                    <mat-error>
-                                        La pregunta debe tener al menos 10 caracteres.
-                                    </mat-error>
-                                }
-                                @if (pregunta.get('enunciado')?.hasError('maxlength')) {
-                                    <mat-error>
-                                        La pregunta no puede exceder los 200 caracteres.
-                                    </mat-error>
-                                }
-                            </mat-form-field>
-                            <mat-form-field>
-                                <mat-label>Conceptos Asociados</mat-label>
-                                <mat-select multiple formControlName="conceptos" placeholder="Seleccione al menos un concepto">
-                                    @for (concepto of listadoConceptos; track concepto.id) {
-                                        <mat-option [value]="concepto">
-                                            {{ concepto.nombre }}
-                                        </mat-option>
-                                    }
-                                </mat-select>
-                                @if (pregunta.get('conceptos')?.hasError('required')) {
-                                    <mat-error>
-                                        Debe seleccionar al menos un concepto.
-                                    </mat-error>
-                                }
-                            </mat-form-field>
-                        </div>
-                        @if (preguntas.length > 1) {
-                            <button mat-raised-button color="warn" (click)="eliminarPregunta(i)">Eliminar Pregunta</button>
-                        }
-                    </fieldset>
-                }
-                <button mat-raised-button (click)="agregarPregunta()">Agregar Pregunta</button>
-            </form>
-            <div class="malla-container">
-                <app-malla-conceptual (conceptos)="actualizarConceptos($event)"></app-malla-conceptual>
+        <form [formGroup]="cuestionario">
+            <div class="form-header">
+                <mat-form-field class="header-field">
+                    <mat-label>Nombre del Cuestionario</mat-label>
+                    <input matInput type="text" formControlName="nombre" placeholder="Ingrese el nombre del cuestionario">
+                    @if (cuestionario.get('nombre')?.hasError('required')) {
+                        <mat-error>
+                            El nombre es obligatorio.
+                        </mat-error>
+                    }
+                    @if (cuestionario.get('nombre')?.hasError('minlength')) {
+                        <mat-error>
+                            El nombre debe tener al menos 5 caracteres.
+                        </mat-error>
+                    }
+                    @if (cuestionario.get('nombre')?.hasError('maxlength')) {
+                        <mat-error>
+                            El nombre no puede exceder los 100 caracteres.
+                        </mat-error>
+                    }
+                </mat-form-field>
+                <mat-form-field class="header-field">
+                    <mat-label>Fecha límite</mat-label>
+                    <input matInput [matDatepicker]="picker" [min]="minDate" formControlName="fecha_limite" placeholder="Seleccione la fecha límite">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    @if (cuestionario.get('fecha_limite')?.hasError('required')) {
+                        <mat-error>
+                            La fecha límite es obligatoria.
+                        </mat-error>
+                    }
+                </mat-form-field>
             </div>
-        </div>
+            <div class="subcontainer" >
+                <div class="cuestionario-form">
+                    @for (pregunta of preguntas.controls; let i = $index; track i) {
+                        <fieldset class="cuestionario" formArrayName="preguntas">
+                            <legend><h3>Pregunta {{ i + 1 }}</h3></legend>
+                            <div class="form-container" [formGroupName]="i">
+                                <mat-form-field>
+                                    <mat-label>Pregunta {{ i + 1 }}</mat-label>
+                                    <textarea matInput type="text" formControlName="enunciado" placeholder="Texto de la pregunta" ></textarea>
+                                    @if (pregunta.get('enunciado')?.hasError('required')) {
+                                        <mat-error>
+                                            La pregunta es obligatoria.
+                                        </mat-error>
+                                    }
+                                    @if (pregunta.get('enunciado')?.hasError('minlength')) {
+                                        <mat-error>
+                                            La pregunta debe tener al menos 10 caracteres.
+                                        </mat-error>
+                                    }
+                                    @if (pregunta.get('enunciado')?.hasError('maxlength')) {
+                                        <mat-error>
+                                            La pregunta no puede exceder los 200 caracteres.
+                                        </mat-error>
+                                    }
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Conceptos Asociados</mat-label>
+                                    <mat-select multiple formControlName="conceptos" placeholder="Seleccione al menos un concepto">
+                                        @for (concepto of listadoConceptos; track concepto.id) {
+                                            <mat-option [value]="concepto">
+                                                {{ concepto.nombre }}
+                                            </mat-option>
+                                        }
+                                    </mat-select>
+                                    @if (pregunta.get('conceptos')?.hasError('required')) {
+                                        <mat-error>
+                                            Debe seleccionar al menos un concepto.
+                                        </mat-error>
+                                    }
+                                </mat-form-field>
+                            </div>
+                            @if (preguntas.length > 1) {
+                                <button mat-raised-button color="warn" (click)="eliminarPregunta(i)">Eliminar Pregunta</button>
+                            }
+                        </fieldset>
+                    }
+                    <button mat-raised-button (click)="agregarPregunta()">Agregar Pregunta</button>
+                </div>
+                <div class="malla-container">
+                    <app-malla-conceptual (conceptos)="actualizarConceptos($event)"></app-malla-conceptual>
+                </div>
+            </div>
+        </form>
         <button mat-raised-button (click)="guardar()">Guardar</button>
     </mat-card-content>
 </mat-card>

@@ -25,7 +25,17 @@
     overflow-y: auto;
 }
 
-@media (max-width: 1024px) {
+.form-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.header-field {
+    width: 48%;
+}
+
+@media (max-width: 1280px) {
     .subcontainer {
         flex-direction: column;
         row-gap: 20px;
@@ -35,5 +45,16 @@
         width: 100%;
         max-height: none;
         overflow-y: visible;
+    }
+}
+
+@media (max-width: 1024px) {
+    .form-header {
+        flex-direction: column;
+        row-gap: 10px;
+    }
+
+    .header-field {
+        width: 100%;
     }
 }

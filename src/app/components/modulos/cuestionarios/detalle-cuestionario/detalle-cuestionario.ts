@@ -6,6 +6,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MallaConceptual } from '../malla-conceptual/malla-conceptual';
 
 
@@ -19,6 +20,7 @@ import { MallaConceptual } from '../malla-conceptual/malla-conceptual';
     MatSelectModule,
     MatFormFieldModule,
     MatInputModule,
+    MatDatepickerModule,
     MallaConceptual
   ],
   templateUrl: './detalle-cuestionario.html',
@@ -27,6 +29,7 @@ import { MallaConceptual } from '../malla-conceptual/malla-conceptual';
 export class DetalleCuestionario {
 
   protected listadoConceptos: Array<any> = [];
+  protected minDate: Date = new Date();
 
   protected cuestionario: FormGroup;
   protected preguntas: FormArray;
@@ -41,6 +44,8 @@ export class DetalleCuestionario {
       }),
     ]);
     this.cuestionario = this.formBuilder.group({
+      nombre: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
+      fecha_limite: ['', Validators.required],
       preguntas: this.preguntas
     });
     

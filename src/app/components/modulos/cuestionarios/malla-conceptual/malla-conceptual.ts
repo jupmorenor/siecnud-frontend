@@ -224,6 +224,9 @@ export class MallaConceptual implements AfterViewInit {
   }
 
   private updateLinks(movedGroup: Group) {
+    movedGroup.left = Math.min(Math.max(movedGroup.left, 0), this.canvas.getWidth());
+    movedGroup.top = Math.min(Math.max(movedGroup.top, 0), this.canvas.getHeight());
+
     this.links.forEach((link: Link, i: number, links: Link[]) => {
       
       if (link.from === movedGroup || link.to === movedGroup) {
