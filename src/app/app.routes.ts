@@ -8,6 +8,8 @@ import { Perfil } from './components/otros/perfil/perfil';
 import { Registro } from './components/pagina/registro/registro';
 import { Web } from './components/pagina/web/web';
 import { DetalleCuestionario } from './components/modulos/cuestionarios/detalle-cuestionario/detalle-cuestionario';
+import { RespuestaCuestionario } from './components/modulos/cuestionarios/respuesta-cuestionario/respuesta-cuestionario';
+import { ListaCuestionarios } from './components/modulos/cuestionarios/lista-cuestionarios/lista-cuestionarios';
 
 export const routes: Routes = [
     {
@@ -36,11 +38,21 @@ export const routes: Routes = [
     },
     {
         path: 'cuestionarios',
-        component: Cuestionarios
-    },
-    {
-        path: 'detalle-cuestionario',
-        component: DetalleCuestionario,
+        component: Cuestionarios,
+        children: [
+            {
+                path: '',
+                component: ListaCuestionarios
+            },
+            {
+                path: 'detalle-cuestionario',
+                component: DetalleCuestionario,
+            },
+            {
+                path: 'responder-cuestionario/:id',
+                component: RespuestaCuestionario,
+            },
+        ]
     },
     {
         path: 'perfil',
