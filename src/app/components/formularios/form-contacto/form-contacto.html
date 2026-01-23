@@ -2,7 +2,7 @@
     <fieldset class="grid-container">
         <legend><h2>Datos de contacto</h2></legend>
         <div class="form-container">
-            @for (telefono of telefonos.controls; let i = $index; track i) {
+            @for (telefono of telefonos.controls; let i = $index; track telefono) {
                 <mat-form-field>
                     <mat-label>Teléfono {{i + 1}}</mat-label>
                     <div formArrayName="telefonos">
@@ -33,7 +33,7 @@
         </div>
         <div class="button-container">
             @if (datosContacto.enabled) {
-                <button mat-raised-button color="primary" type="submit" (click)="guardarDatos()">Guardar</button>
+                <button mat-raised-button color="primary" type="submit" (click)="guardarDatos()" [disabled]="datosContacto.invalid">Guardar</button>
             }
             @if (datosContacto.disabled && modificable()) {
                 <button mat-raised-button type="button" (click)="activarFormulario()">Modificar</button>

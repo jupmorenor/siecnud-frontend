@@ -169,7 +169,7 @@
                     </mat-error>
                 }
             </mat-form-field>
-            @for (telefono of telefonos.controls; let i = $index; track i) {
+            @for (telefono of telefonos.controls; let i = $index; track telefono) {
                 <mat-form-field>
                     <mat-label>Teléfono {{i + 1}}</mat-label>
                     <div formArrayName="telefonos">

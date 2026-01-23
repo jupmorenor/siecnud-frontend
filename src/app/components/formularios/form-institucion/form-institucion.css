@@ -10,6 +10,7 @@
     text-align: start;
     overflow-y: visible;
     border-radius: 10px;
+    border-color: darkgray;
 }
 
 .button-container {

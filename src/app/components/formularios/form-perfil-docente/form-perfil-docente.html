@@ -64,7 +64,7 @@
                     </mat-error>
                 }
             </mat-form-field>
-            @for( reconocimiento of reconocimientos.controls; let i = $index; track i) {
+            @for( reconocimiento of reconocimientos.controls; let i = $index; track reconocimiento) {
                 <mat-form-field>
                     <mat-label>Reconocimiento {{i + 1}}</mat-label>
                     <div formArrayName="reconocimientos">
@@ -100,7 +100,9 @@
         </div>
         <div class="button-container">
             @if (datosPerfilDocente.enabled) {
-                <button mat-raised-button color="primary" type="submit" (click)="guardarDatos()">Guardar</button>
+                <button mat-raised-button color="primary" type="submit" (click)="guardarDatos()" [disabled]="datosPerfilDocente.invalid">
+                    Guardar
+                </button>
             }
             @if (datosPerfilDocente.disabled && modificable()) {
                 <button mat-raised-button type="button" (click)="activarFormulario()" >Modificar</button>

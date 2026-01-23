@@ -40,7 +40,7 @@
             </div>
             <div class="subcontainer" >
                 <div class="cuestionario-form">
-                    @for (pregunta of preguntas.controls; let i = $index; track i) {
+                    @for (pregunta of preguntas.controls; let i = $index; track pregunta) {
                         <fieldset class="cuestionario" formArrayName="preguntas">
                             <legend><h3>Pregunta {{ i + 1 }}</h3></legend>
                             <div class="form-container" [formGroupName]="i">
@@ -91,6 +91,6 @@
                 </div>
             </div>
         </form>
-        <button mat-raised-button (click)="guardar()">Guardar</button>
+        <button mat-raised-button (click)="guardar()" [disabled]="cuestionario.invalid">Guardar</button>
     </mat-card-content>
 </mat-card>
