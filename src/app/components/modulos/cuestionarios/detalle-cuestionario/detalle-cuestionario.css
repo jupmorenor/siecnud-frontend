@@ -9,14 +9,13 @@
     text-align: start;
     overflow-y: visible;
     border-radius: 10px;
-    border-color: darkgrey;
 }
 
 .form-container {
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding: 1%;
+    padding: 1% 1% 0 1%;
     box-sizing: border-box;
 }
 
@@ -34,6 +33,11 @@
 
 .header-field {
     width: 48%;
+}
+
+.btn-actividad {
+    width: fit-content;
+    place-self: flex-end;
 }
 
 @media (max-width: 1280px) {

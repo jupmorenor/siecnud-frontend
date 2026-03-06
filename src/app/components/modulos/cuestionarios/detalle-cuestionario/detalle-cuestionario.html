@@ -38,6 +38,28 @@
                     }
                 </mat-form-field>
             </div>
+            <fieldset class="cuestionario">
+                <legend><h2>Actividades Asociadas</h2></legend>
+                @for (actividad of actividades.controls; let j = $index; track actividad) {
+                    <div formArrayName="actividades">
+                        <div class="form-container" [formGroupName]="j">
+                            <mat-form-field>
+                                <mat-label>Actividad {{ j + 1 }}</mat-label>
+                                <input matInput type="text" formControlName="actividad" placeholder="Descripción de la actividad">
+                                @if (actividad.get('actividad')?.hasError("required")) {
+                                    <mat-error>
+                                        La actividad no puede quedar vacia. 
+                                    </mat-error>
+                                }
+                            </mat-form-field>
+                            @if (actividades.length > 1) {
+                                <button class="btn-actividad" mat-raised-button color="warn" (click)="eliminarActividad(j)">Eliminar Actividad {{ j + 1 }}</button>
+                            }
+                        </div>
+                    </div>
+                }
+                <button mat-raised-button (click)="agregarActividad()">Agregar Actividad</button>
+            </fieldset>
             <div class="subcontainer" >
                 <div class="cuestionario-form">
                     @for (pregunta of preguntas.controls; let i = $index; track pregunta) {
@@ -80,7 +102,7 @@
                                 </mat-form-field>
                             </div>
                             @if (preguntas.length > 1) {
-                                <button mat-raised-button color="warn" (click)="eliminarPregunta(i)">Eliminar Pregunta</button>
+                                <button mat-raised-button color="warn" (click)="eliminarPregunta(i)">Eliminar Pregunta {{ i + 1 }}</button>
                             }
                         </fieldset>
                     }

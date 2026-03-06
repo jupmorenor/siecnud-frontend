@@ -33,6 +33,7 @@ export class DetalleCuestionario {
 
   protected cuestionario: FormGroup;
   protected preguntas: FormArray;
+  protected actividades: FormArray;
 
   protected formBuilder = inject(FormBuilder);
   
@@ -43,10 +44,16 @@ export class DetalleCuestionario {
         conceptos: [[], [Validators.required]]
       }),
     ]);
+    this.actividades = this.formBuilder.array([
+      this.formBuilder.group({
+        actividad: ['', [Validators.required]]
+      })
+    ]);
     this.cuestionario = this.formBuilder.group({
       nombre: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
       fecha_limite: ['', Validators.required],
-      preguntas: this.preguntas
+      preguntas: this.preguntas,
+      actividades: this.actividades
     });
     
   }
@@ -62,6 +69,18 @@ export class DetalleCuestionario {
 
   eliminarPregunta(index: number) {
     this.preguntas.removeAt(index);
+  }
+
+  agregarActividad() {
+    this.actividades.push(
+      this.formBuilder.group({
+        actividad: ['', [Validators.required]]
+      })
+    );
+  }
+
+  eliminarActividad(index: number) {
+    this.actividades.removeAt(index);
   }
 
   actualizarConceptos(conceptos: any[]) {
